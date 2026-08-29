@@ -23,7 +23,22 @@ reachable only when you type them, and their job is to orchestrate.
 **Model-invoked** skills can be typed by you *or* reached for automatically by
 the agent when the task fits, and they hold the reusable discipline.
 
-Nothing here yet. Skills and their buckets get added as they are written.
+### engineering
+
+Writing, reviewing, and shipping code. Bucket index:
+[skills/engineering](./skills/engineering/README.md).
+
+**Model-invoked**
+
+- [context-fix](./skills/engineering/context-fix/SKILL.md): Audit a
+  repository's agent context against the code it describes, then repair the
+  defects the repository can prove.
+- [pr-description](./skills/engineering/pr-description/SKILL.md): Write the
+  pull request description for the current branch as markdown to paste into
+  GitHub.
+- [triage-gh-pr-comments](./skills/engineering/triage-gh-pr-comments/SKILL.md):
+  Triage the review comments on the current branch's GitHub PR, report the
+  verdicts, and fix the approved ones. Needs the GitHub MCP server.
 
 ## Working on these
 
