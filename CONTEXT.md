@@ -21,6 +21,17 @@ A property of a bucket: its skills are ready to use, so they appear in the
 top-level `README.md`. `in-progress/`, `deprecated/`, and `misc/` are the
 non-promoted buckets.
 
+**Handoff**:
+A prompt written for a fresh agent to execute one unit of work to completion,
+carrying the sources, authority order, and scope boundary that agent cannot
+recover from the repository. The artifact, never the act of delegating.
+_Avoid_: brief, spec, task prompt
+
+**Authority order**:
+The explicit ranking of a project's sources, deciding which one wins where they
+disagree. Stated in every handoff, since a receiving agent has no other way to
+resolve a conflict.
+
 **Invocation**:
 Who can reach a skill: **model-invoked** (model or user) or **user-invoked**
 (human only). See `.agents/invocation.md`.
@@ -31,6 +42,7 @@ Who can reach a skill: **model-invoked** (model or user) or **user-invoked**
 - A **Bucket** is either **Promoted** or not, and that decides what the
   top-level `README.md` lists
 - A **Skill** has exactly one **Invocation** mode
+- A **Handoff** carries exactly one **Authority order**
 
 ## Flagged ambiguities
 
