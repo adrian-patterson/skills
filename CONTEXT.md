@@ -21,11 +21,49 @@ A property of a bucket: its skills are ready to use, so they appear in the
 top-level `README.md`. `in-progress/`, `deprecated/`, and `misc/` are the
 non-promoted buckets.
 
+**Unit**:
+One piece of a project's work, small enough that a single agent can carry it to
+completion and large enough to be worth handing off. What a tracker item names,
+a handoff scopes, and a report closes.
+_Avoid_: task, ticket, story, chunk
+
+**Boundary**:
+The line between what a unit owns and what its siblings own. Stated as two
+explicit lists in every handoff, and answered by two more in every report,
+because a capable agent absorbs its neighbours unless told not to.
+
 **Handoff**:
 A prompt written for a fresh agent to execute one unit of work to completion,
 carrying the sources, authority order, and scope boundary that agent cannot
 recover from the repository. The artifact, never the act of delegating.
 _Avoid_: brief, spec, task prompt
+
+**Report**:
+What a finished unit returns to the session that dispatched it, carrying the
+verdict, what landed, and the interface the next unit calls. The artifact, never
+the act of reporting. Pairs with a handoff, one each way.
+_Avoid_: summary, update, status
+
+**Board**:
+The directory in a repository where the agents on one project coordinate:
+dispatches, reports, and decisions, and nothing else. A blackboard, not a chat.
+One project has exactly one.
+_Avoid_: channel, queue, inbox
+
+**Post**:
+One file on a board. Always a claim to verify against the repository, except a
+decision, which is the only kind that binds.
+_Avoid_: message, note, entry
+
+**Note**:
+A post carrying a finding, a need, an offer, or an objection between peers. It
+binds nobody, and it carries the basis of every claim it makes. The only kind a
+peer may act on unprompted is an objection, which halts.
+
+**Grant**:
+What a handoff issues along with an identity: the unit, the boundary, and
+whether the receiving agent may write or only read. It is what makes an
+asserted identity checkable, and it expires when the report is filed.
 
 **Authority order**:
 The explicit ranking of a project's sources, deciding which one wins where they
@@ -43,6 +81,13 @@ Who can reach a skill: **model-invoked** (model or user) or **user-invoked**
   top-level `README.md` lists
 - A **Skill** has exactly one **Invocation** mode
 - A **Handoff** carries exactly one **Authority order**
+- A **Handoff** dispatches exactly one **Unit**, and exactly one **Report**
+  closes it
+- A **Unit** has exactly one **Boundary**, which the **Handoff** states and the
+  **Report** answers against
+- A **Board** holds many **Posts**, and every **Handoff** and **Report** is one
+- A **Handoff** issues exactly one **Grant**, and at most one write **Grant**
+  is open across a project at a time
 
 ## Flagged ambiguities
 

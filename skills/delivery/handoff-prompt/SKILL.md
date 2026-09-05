@@ -102,12 +102,13 @@ Validation
 <exact commands, with their directories>
 
 Report
-<what the agent returns: changed files, results, interface for the next unit, anything it could not resolve>
+When the work is finished, blocked, or abandoned, call the Skill tool with "handoff-report" and return the report it produces, verbatim.
+<anything this unit must report beyond that skill's own sections>
 ```
 
 ## 7. Deliver
 
-Print the handoff in one fenced block, the last thing in the reply, ready to paste into a fresh session. Above the block, list in one or two lines anything you could not verify.
+Where the project has a board, call the Skill tool with "project-board" and save the handoff there under the identity it issues. Otherwise print it in one fenced block, the last thing in the reply, ready to paste into a fresh session. Above the block or the path, list in one or two lines anything you could not verify.
 
 When another agent invoked this skill in order to dispatch the work itself, return the handoff verbatim as the prompt for that agent to send, and dispatch nothing yourself.
 

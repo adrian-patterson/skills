@@ -20,9 +20,13 @@ Ask the user which sources govern the project, unless they have already named th
 
 Then fix the **authority order**: which source defines behaviour, which refines technical detail, which sets a unit's boundary, and which supplies patterns only. Existing code is a source of patterns; it is not the behaviour contract unless nothing else defines the behaviour. Restate this order whenever a decision turns on it.
 
+Then settle the **board**. Call the Skill tool with "project-board" to find the project's board or set one up. Any project running across more than one session or more than one agent wants one: it is where every handoff, report, and decision lands, and it is what lets a later session of this role pick the project up without you retelling it.
+
 ## 1. Build the picture
 
-Read the specification whole, not the section that seems relevant. Read every open unit in the tracker, its state, owner, and dependencies. Read the code that already implements the nearest equivalent, and the code the earliest units have already merged.
+**Where a board exists, sweep it first.** List its posts and its decisions. The filenames carry every unit, every attempt, and every verdict, so the state of the project costs one listing and no file reads at all. Then read the decisions, which are the calls this project has already made and which bind you. Only then reconcile the delta against the sources.
+
+**On the first session, or a project with no board**, read the specification whole, not the section that seems relevant. Read every open unit in the tracker, its state, owner, and dependencies. Read the code that already implements the nearest equivalent, and the code the earliest units have already merged.
 
 Completion criterion: you can name every unit of work, its state, what it depends on, and which part of the specification it serves.
 
@@ -58,23 +62,38 @@ Correcting a unit's description, creating one, or resequencing the project is a 
 
 ## 5. Delegate the work
 
-One unit at a time, when the user says to proceed.
+Two kinds of dispatch. What separates them is the grant, not the tooling.
 
-Call the Skill tool with "handoff-prompt" to prepare the prompt for that unit. Supply it with the unit's identifier, the sources and their authority order, the boundary between this unit and its siblings, and every decision this session settled that no document records yet.
+**A write unit, one at a time**, when the user says to proceed. Before dispatching, check the board for an open write grant: a handoff granting write with no matching report. If one is open, that unit is still live and this dispatch does not happen. Two agents editing at once make silently conflicting assumptions that surface only where their work meets, which costs more than the sequencing saved.
 
-Then dispatch an implementation agent with the prompt it returns, verbatim. Never edit the prompt into a summary on the way, and never dispatch a second unit whose boundary depends on the first until the first has returned.
+**Readers, as many at once as there are questions worth answering.** A reader investigates, reviews, or maps the ground for a unit not yet dispatched, and never edits, commits, or pushes. Dispatch these freely while a write unit runs: their notes land on the board and the next handoff cites them instead of paying to rediscover the same ground. This is where the parallelism in this role actually lives.
+
+For either, call the Skill tool with "handoff-prompt" to prepare the prompt. Supply it with the unit's identifier, the sources and their authority order, the boundary between this unit and its siblings, whether the grant is write or read, and every decision this session settled that no document records yet.
+
+Then dispatch an agent with the prompt it returns, verbatim. Never edit the prompt into a summary on the way, and never dispatch a second write unit whose boundary depends on the first until the first has returned.
 
 ## 6. Close the loop
 
-When an implementation agent reports back:
+Sweep the board, then work in this order.
 
-- Check what it delivered against the boundary it was given, and say plainly when it went past it or fell short.
-- Note the interface it produced that the next units will call.
-- Fold the outcome into the picture: what is now merged, what unblocked, what the result invalidates in the plan.
-- Re-run step 2 against anything the work changed, then propose the next unit.
+**Objections first.** An objection halts the work it names until you rule on it, so it is read before anything else and nothing is dispatched while one is unresolved. Decide, and record the ruling as a decision.
+
+**Then reports, by verdict.**
+
+- `COMPLETE`: read the interface it published and fold it into the picture.
+- `COMPLETE WITH DEVIATIONS`: read each deviation against the boundary you drew, and say plainly whether it was forced or taken.
+- `PARTIAL` or `ABANDONED`: establish what landed and what state the branch is in, then decide whether the remainder is a new instance of this unit or a new unit.
+- `BLOCKED`: read what would unblock it. Either write the decision that unblocks it or re-scope the unit, then dispatch the next instance with a handoff carrying the blocked report, so the next agent does not repeat the attempt.
+
+Read a report by its frontmatter, its interface, and its unresolved section. Open the rest only where something turns on it. Your context is the one that has to survive this project.
+
+**Then fold in**: what is now merged, what unblocked, and what the result invalidates in the plan. Re-run step 2 against anything the work changed, then propose the next unit.
+
+Notes that are not objections are traffic between agents. Read one when a report cites it, not on every sweep.
 
 ## Standing rules
 
+- **Anything you settle becomes a decision on the board.** You have to be resumable from the board alone. A call that lives only in this session dies with it, and the next session of this role will not know it was made.
 - **Cite, do not recall.** Every claim about the project traces to the specification, a tracker unit, or a file. Late in a long session the temptation to answer from memory is strongest and the memory is weakest, so re-read the source.
 - **Surface a gap rather than filling it.** When the specification is silent on something the implementation needs, that is a finding and a decision for the user, not a detail to infer.
 - **Protect the boundaries.** Most of the value of a plan is lost in the units that quietly absorb their neighbours.

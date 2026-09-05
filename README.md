@@ -25,8 +25,8 @@ the agent when the task fits, and they hold the reusable discipline.
 
 ### delivery
 
-Planning a project, holding its shape across sessions, and handing its work to
-the agents that implement it. Bucket index:
+Planning a project, holding its shape across sessions, handing its work to the
+agents that implement it, and taking back what they did. Bucket index:
 [skills/delivery](./skills/delivery/README.md).
 
 **User-invoked**
@@ -37,9 +37,16 @@ the agents that implement it. Bucket index:
 
 **Model-invoked**
 
-- [handoff-prompt](./skills/delivery/handoff-prompt/SKILL.md): Write a self-contained prompt
-  that hands one unit of work to a fresh agent, carrying the sources, authority
-  order, scope boundary, and verification it needs.
+- [handoff-prompt](./skills/delivery/handoff-prompt/SKILL.md): Write a
+  self-contained prompt that hands one unit of work to a fresh agent, carrying
+  the sources, authority order, scope boundary, and verification it needs.
+- [handoff-report](./skills/delivery/handoff-report/SKILL.md): Write the report
+  a finished unit of work returns to the session that dispatched it, carrying
+  the verdict, what landed, the verification run, and the interface the next
+  unit calls.
+- [project-board](./skills/delivery/project-board/SKILL.md): Read and post to a
+  project's coordination board, the shared directory where a manager dispatches
+  units, agents report back, and decisions are recorded.
 
 ### engineering
 
