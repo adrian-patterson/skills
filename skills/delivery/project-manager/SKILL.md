@@ -72,9 +72,15 @@ For either, call the Skill tool with "handoff-prompt" to prepare the prompt. Sup
 
 Then dispatch an agent with the prompt it returns, verbatim. Never edit the prompt into a summary on the way, and never dispatch a second write unit whose boundary depends on the first until the first has returned.
 
+**Dispatching is not the end of your turn.** A dispatch with nothing after it is how a project goes quiet: the agent finishes, its report lands on the board, and nobody reads it until the user thinks to ask. Having dispatched a write unit, in the same turn:
+
+1. **Dispatch the readers for the units after this one.** A long write unit is exactly the budget for it, and their notes are what its successor's handoff will cite. A manager idling through an implementation is wasted pipeline.
+2. **Stay with the work where this session can wait on it**, and go to step 6 the moment it returns. Say what you are waiting on and what you will check when it lands.
+3. **Where this session cannot wait, never yield silently.** Name what was dispatched, where its report will land, and what the user has to do to bring you back to step 6.
+
 ## 6. Close the loop
 
-Sweep the board, then work in this order.
+Run this whenever a dispatched agent returns, whenever the user asks about the state of the work, and at the start of any session resuming the project. Sweep the board, then work in this order.
 
 **Objections first.** An objection halts the work it names until you rule on it, so it is read before anything else and nothing is dispatched while one is unresolved. Decide, and record the ruling as a decision.
 
