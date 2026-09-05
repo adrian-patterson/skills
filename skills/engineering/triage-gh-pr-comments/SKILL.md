@@ -32,7 +32,9 @@ In scope, unresolved and issue-bearing only:
 
 Out of scope, and not fetched, counted, or reported unless the user asks for them by name: resolved threads, general discussion, praise and acknowledgements, empty review submissions, and bot status output such as previews, coverage, and quality gates. A bot review that names a specific defect in the diff is in scope; its build summary is not.
 
-Paginate to the end. Group replies under their root thread, keep author, body, path, line, thread state, diff hunk, and URL, and give each item a stable ID (`T01`, `T02` for threads, `B01` for review bodies). Fetch the PR diff once and keep it.
+Paginate to the end. Group replies under their root thread, keep author, body, path, line, thread state, diff hunk, and URL, and give each item an ID that is stable for this run (`T01`, `T02` for threads, `B01` for review bodies). Fetch the PR diff once and keep it.
+
+These IDs are scoped to this run and are reassigned the next time this skill runs on the same PR, so `T03` in one run and `T03` in the next are different comments. They belong in the report and in conversation with the user. Keep them out of anything that outlives the session: commit subjects and bodies, branch names, and replies posted to GitHub.
 
 If nothing survives the scope filter, say so and stop.
 
@@ -76,7 +78,7 @@ Then ask which IDs to fix, revise, or drop, and stop. Wait for the user.
 
 Only for the IDs the user approved.
 
-Work one ID at a time, keeping each fix to the scope proposed in step 3. Run the repository's own tests and checks for the paths you touched. Commit per ID or per coherent group, naming the ID and what it fixed in the subject.
+Work one ID at a time, keeping each fix to the scope proposed in step 3. Run the repository's own tests and checks for the paths you touched. Commit per ID or per coherent group. The subject names the defect that was fixed, not the ID. Where a commit wants a durable referent, put the review thread's URL from step 2 in the body.
 
 Push to the PR head branch. Never force-push, never rebase, and never amend a commit that is already on the remote.
 
