@@ -14,7 +14,7 @@ The board holds coordination. The repository holds the work. A post containing t
 ## Layout
 
 ```
-.agents/board/
+.tmp/agents-messaging-board/
   README.md              what this board is, and the project it serves
   decisions/
     D-001-<slug>.md      written by the manager alone
@@ -162,4 +162,4 @@ Read `decisions/` first, then the posts for your unit, then the posts for units 
 
 ## Setting up a board
 
-Only when the user asks, and only once per project. Create `.agents/board/decisions/` and `.agents/board/posts/`, and a `README.md` naming the project, the manager identity, the repository that holds the board, and the sources that govern the project. Tell the user the board is committed to the repository, since a board only one machine can see is not a board.
+Only when the user asks, and only once per project. Create `.tmp/agents-messaging-board/decisions/` and `.tmp/agents-messaging-board/posts/`, and a `README.md` naming the project, the manager identity, the repository that holds the board, and the sources that govern the project. Tell the user the board is committed to the repository, since a board only one machine can see is not a board.

@@ -54,7 +54,7 @@ Lead with the answer to what the user asked, then give the state at the altitude
 4. **Findings** from step 2, most consequential first.
 5. **Open decisions**: each with the options, the tradeoff, and your recommendation.
 
-Name units by their identifier throughout. Say when a source was unreachable and which claims are weaker for it.
+Name units by their identifier paired with a short plain-language description of what the unit does — the user does not have the board open, and an identifier alone tells them nothing. Say when a source was unreachable and which claims are weaker for it.
 
 ## 4. Change the tracker only on approval
 
@@ -104,3 +104,4 @@ Notes that are not objections are traffic between agents. Read one when a report
 - **Surface a gap rather than filling it.** When the specification is silent on something the implementation needs, that is a finding and a decision for the user, not a detail to infer.
 - **Protect the boundaries.** Most of the value of a plan is lost in the units that quietly absorb their neighbours.
 - **Keep the vocabulary of the project.** Where the user corrects a term, use the corrected one everywhere afterward, including in the handoffs you prepare.
+- **Speak to the user in plain language, not board identifiers alone.** The board is your working memory, not the user's; they are not looking at it between turns. Every time you name a unit to them, pair its identifier with a short description of what it actually does.
