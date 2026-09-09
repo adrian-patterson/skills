@@ -32,6 +32,20 @@ The line between what a unit owns and what its siblings own. Stated as two
 explicit lists in every handoff, and answered by two more in every report,
 because a capable agent absorbs its neighbours unless told not to.
 
+**End**:
+What the whole project is working toward, stated in one line in every handoff.
+Not a unit's deliverable and not a motivation: it is the frame that lets an
+agent judge whether something outside its boundary is worth reporting. It
+decides what an agent reports and never what it does.
+_Avoid_: goal, mission, objective
+
+**Reaching**:
+What an agent does instead of stopping when it cannot finish: a third distinct
+approach to the same obstacle, needing access nobody granted it, or changing
+what it is doing rather than how. Named because it is recognisable from inside,
+which is what makes it a usable stopping condition.
+_Avoid_: scope creep, going rogue
+
 **Handoff**:
 A prompt written for a fresh agent to execute one unit of work to completion,
 carrying the sources, authority order, and scope boundary that agent cannot
@@ -47,7 +61,8 @@ _Avoid_: summary, update, status
 **Board**:
 The directory in a repository where the agents on one project coordinate:
 dispatches, reports, and decisions, and nothing else. A blackboard, not a chat.
-One project has exactly one.
+One project has exactly one. It lives in `.tmp/` and is never committed, so it is
+the project's working memory and never its record.
 _Avoid_: channel, queue, inbox
 
 **Post**:
@@ -56,9 +71,9 @@ decision, which is the only kind that binds.
 _Avoid_: message, note, entry
 
 **Note**:
-A post carrying a finding, a need, an offer, or an objection between peers. It
-binds nobody, and it carries the basis of every claim it makes. The only kind a
-peer may act on unprompted is an objection, which halts.
+A post carrying a finding, a need, an offer, a tool, or an objection between
+peers. It binds nobody, and it carries the basis of every claim it makes. The
+only kind a peer may act on unprompted is an objection, which halts.
 
 **Grant**:
 What a handoff issues along with an identity: the unit, the boundary, and
@@ -80,7 +95,8 @@ Who can reach a skill: **model-invoked** (model or user) or **user-invoked**
 - A **Bucket** is either **Promoted** or not, and that decides what the
   top-level `README.md` lists
 - A **Skill** has exactly one **Invocation** mode
-- A **Handoff** carries exactly one **Authority order**
+- A **Handoff** carries exactly one **Authority order**, and states the project's
+  one **End** plus the open **Units** and what each blocked one is blocked on
 - A **Handoff** dispatches exactly one **Unit**, and exactly one **Report**
   closes it
 - A **Unit** has exactly one **Boundary**, which the **Handoff** states and the

@@ -11,11 +11,19 @@ That agent can read the repository. It cannot read this session. So the handoff 
 
 Writing a handoff changes no code. Read the sources, verify the paths, print the prompt.
 
-## 1. Pin the unit of work
+## 1. Pin the unit, and what the others are stuck on
 
 One sentence naming what the receiving agent delivers, in the vocabulary of the project. If it does not fit one sentence without an "and", it is more than one handoff: say so, propose the split, and write the first one only.
 
 Capture the identifier the project already uses for this unit (ticket key, issue number, milestone) so every later section can name it.
+
+Then, in one line, the **end** the project is working toward. Then the part that does the work: **the open units, and what each blocked one is blocked on.** Two or three lines, by identifier.
+
+That list is what makes an agent post. An agent knowing only its own deliverable treats everything else it meets as noise, having nothing to measure it against, and the cost lands on whichever unit later pays full price to rediscover it. An agent that knows U-143 has been stuck on the thing it just worked out will say so. The reciprocity is structural rather than moral: whoever reads this list is on it next week.
+
+Where the project has a board this is a listing, not an investigation. An open handoff with no matching report is a live unit, and a `report.<nn>.BLOCKED` is a blocked one. A peer issuing a read grant holds no plan to draw on and takes the list from exactly there, saying that is where it came from.
+
+The list is also what is most likely to be misread as permission, so the handoff states which way it cuts: **what other units need decides what you report; the boundary decides what you do.** Section 4 is what this agent may act on, and it wins.
 
 ## 2. Resolve the sources
 
@@ -44,13 +52,21 @@ Two lists, both explicit:
 
 The second list is what stops a capable agent from absorbing the neighbouring work. It is not optional, and vague scoping is the most expensive defect a handoff can carry.
 
-## 5. Establish verification
+## 5. Set the stopping condition
+
+An agent that cannot finish rarely stops. It reaches further: another approach, a tool it was not given, access it was not granted, a redefinition of the task that makes its current position count as progress. The pattern is well documented, it gets stronger the longer the agent runs, and it is the single most expensive thing a handoff can fail to pre-empt, because by the time it shows up in a report the work is already somewhere the plan did not put it.
+
+The bound that works is behavioural, not a clock. Write the signals into the prompt: a third distinct approach to the same obstacle, reaching for access or tooling this handoff did not name, or changing *what* is being done rather than *how*. Each of those means the unit is wrong, not that the agent is close.
+
+Say plainly that stopping there is the wanted outcome. A `BLOCKED` report naming the obstacle costs the project one dispatch. A unit delivered by going around the obstacle costs it the next three.
+
+## 6. Establish verification
 
 Copy the build, lint, typecheck, and test commands out of the repository's own manifests, with the directory each runs from. Never invent a command or assume a conventional one.
 
 Then enumerate the cases the work must be tested against, as a numbered list. Enumerating them here is what makes the tests exhaustive rather than representative.
 
-## 6. Write the prompt
+## 7. Write the prompt
 
 Include a section only where you have real content for it. Omit the rest rather than leaving a heading with a placeholder under it.
 
@@ -70,8 +86,17 @@ Authority order
 2. ...
 <what to do when a source is unreachable>
 
+The end
+<one line: what the project is working toward>
+
 Project state
 <what has merged and what it supplies, what comes next, sibling units by identifier>
+
+Where the others are stuck
+<open units by identifier; for each blocked one, what it is blocked on>
+Anything you learn that would unblock one of these goes in your report, and on the
+board as a note where the project has one. It does not widen this unit: what other
+units need decides what you report, the boundary below decides what you do.
 
 Required reading
 <exact paths to guidance files, verified to exist>
@@ -101,12 +126,19 @@ Workflow
 Validation
 <exact commands, with their directories>
 
+Stopping
+Stop and report when you reach a third distinct approach to the same obstacle, when
+you need access or tooling this handoff did not name, or when you notice you have
+changed what you are doing rather than how. Those mean the unit is wrong, not that
+you are close. A BLOCKED report naming the obstacle is a finished outcome, and it is
+the wanted one.
+
 Report
 When the work is finished, blocked, or abandoned, call the Skill tool with "handoff-report" and return the report it produces, verbatim.
 <anything this unit must report beyond that skill's own sections>
 ```
 
-## 7. Deliver
+## 8. Deliver
 
 Where the project has a board, call the Skill tool with "project-board" and save the handoff there under the identity it issues. Otherwise print it in one fenced block, the last thing in the reply, ready to paste into a fresh session. Above the block or the path, list in one or two lines anything you could not verify.
 

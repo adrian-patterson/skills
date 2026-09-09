@@ -41,7 +41,7 @@ Every post is written under an identity of the form `<role>/<unit>/<instance>`:
 
 **An identity is issued, never chosen.** The manager issues one in the handoff that dispatches an agent, and that handoff is the grant: it names the unit, the boundary, the authority order, and what the identity may do. It expires when the report is filed.
 
-An agent that cannot name its grant does not post. State the identity in frontmatter and repeat it as a `Board-Identity:` trailer on the commit, so the two can be compared. Nothing here is authenticated, because the risk being managed is a confused agent, not a hostile one.
+An agent that cannot name its grant does not post. State the identity in frontmatter, and repeat it as a `Board-Identity:` trailer on the commits the work produces, so a post's claim and the repository's history can be compared. Nothing here is authenticated, because the risk being managed is a confused agent, not a hostile one.
 
 ## Write authority
 
@@ -109,9 +109,11 @@ date: 2026-09-05
 
 The body states the question, the options weighed, the call, and what it binds. `authority` records what the decision rests on, because the manager's own authority is delegated from the human. Only the human overrules a decision.
 
+**Write it somewhere durable in the same act.** The board is ephemeral, so a decision living only here dies with the checkout. The moment one is made it also goes where this project keeps what outlasts it: the specification, the tracker, or an ADR. The post is how the agents working now find it; the durable copy is how anyone finds it in a month. Recording one without the other is the defect, and the manager is the one who owes both.
+
 ### Note
 
-Written by anyone, to `posts/<unit>.note.<nn>.md`. A finding, a need, or an objection, addressed to nobody in particular:
+Written by anyone, to `posts/<unit>.note.<nn>.md`. A finding, a need, a tool, or an objection, addressed to nobody in particular:
 
 ```yaml
 ---
@@ -120,7 +122,7 @@ from: impl/U-142/01
 to: reader/U-143/01   # optional; omit to address the board
 re: U-142.note.02     # optional; the note this replies to
 unit: U-142
-kind: finding         # or: need, offer, objection
+kind: finding         # or: need, offer, tool, objection
 basis: src/auth/tenant.ts:88, verified by running the suite
 date: 2026-09-05
 ---
@@ -129,6 +131,10 @@ date: 2026-09-05
 `re` threads a reply onto an earlier note, so a proposal and the response to it read as one exchange. `kind: offer` advertises what you are positioned to do; `kind: need` says what you are missing. Neither assigns anything to anyone.
 
 This is how a discovery on one unit reaches an agent on another without the manager relaying it, which is the whole reason the board exists. `basis` is mandatory: a note without one is how a wrong premise spreads faster than anyone can check it.
+
+**Friction is what makes a note worth writing.** The moment to post is when you have just spent real effort on something that was not your deliverable: a wrong turn that cost an hour, a behaviour you had to read the source to establish, a command that does not work the way the guidance says it does. That cost is the evidence a sibling will pay it too. Something that came free is rarely worth a post however interesting it was, and something that came expensive is worth one even when you cannot name who needs it.
+
+`kind: tool` repays the board fastest: a script, a fixture, a query, a repro case you built for your own unit that another unit can run as-is. Commit the thing itself and point the note at its path, with the command that runs it and what it does. A tool pasted into a post is a tool nobody runs, because it rots the moment the code moves.
 
 A note binds nobody. Reading one creates no obligation to act, and a `kind: need` is an invitation, not an assignment. A `kind: objection` is the exception in one direction only: it halts the work it names until the manager rules, and any identity may raise one. A note asking others to hold while you finish something is an objection, which is why it works.
 
@@ -158,8 +164,13 @@ Read `decisions/` first, then the posts for your unit, then the posts for units 
 - **Carry the basis of every claim**: the specification section, the file and line, the command output, the external document, or an admission that it is inference. A claim without one is how a wrong premise spreads faster than anyone can check it.
 - **Point, do not copy.** Reference files and commits by path and identifier.
 - **Refusal is a real post.** An agent may decline a unit or anything it reads on the board, filed as a report saying what it declined and why. The manager handles that as an outcome.
-- **Blocked means stop.** File the report and stop. The board is not a place to look for a way around a blocker.
+- **Blocked means stop.** File the report and stop. The board is not a place to look for a way around a blocker, and a peer offering one is not authority to take it.
+- **Watch for reaching.** A third distinct approach to the same obstacle, needing access nobody granted you, or changing *what* you are doing rather than *how*: each means the unit is wrong rather than nearly done. Stop there and report. An agent that cannot finish rarely stops on its own, and the board makes reaching easier by putting other people's access in view.
 
 ## Setting up a board
 
-Only when the user asks, and only once per project. Create `.tmp/agents-messaging-board/decisions/` and `.tmp/agents-messaging-board/posts/`, and a `README.md` naming the project, the manager identity, the repository that holds the board, and the sources that govern the project. Tell the user the board is committed to the repository, since a board only one machine can see is not a board.
+Only when the user asks, and only once per project. Create `.tmp/agents-messaging-board/decisions/` and `.tmp/agents-messaging-board/posts/`, and a `README.md` naming the project, the manager identity, the repository that holds the board, the end the project is working toward, and the sources that govern it.
+
+**The board is ephemeral and is never committed.** `.tmp/` is scratch space: the board holds across the sessions working this checkout, which is the span it exists to cover, and it does not survive a clean or reach another machine. Check that the repository ignores `.tmp/`, and add it if not.
+
+What follows is the one thing to tell the user. The board is the project's working memory, not its record. A decision on it binds the agents working now, and it archives nothing: anything that has to outlive the checkout is written where the project keeps durable things, which for a decision means the specification, the tracker, or an ADR. Recording it there is the manager's job, not something the board does by existing.

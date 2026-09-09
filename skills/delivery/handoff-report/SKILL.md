@@ -23,6 +23,8 @@ One of these, chosen before anything else is written, because a verdict picked l
 
 **BLOCKED beats a guess.** Never widen the scope, infer a missing fact, or reach past the boundary in order to turn a BLOCKED into a COMPLETE. A blocked unit with its blocker named is a finished report, and it is worth more than a completion that has to be unpicked.
 
+The signals arrive before the verdict does, and they are behavioural: a third distinct approach to the same obstacle, needing access or tooling the handoff never named, or noticing that you have changed *what* you are doing rather than *how*. Each of those means the unit was scoped wrong, not that you were close. An agent that cannot finish rarely stops on its own; it reaches further, and every step of that reaching is work somebody has to unpick later.
+
 ## 2. Establish what landed
 
 Read the diff. Do not recall it.
@@ -50,7 +52,17 @@ Two lists, answering the ones the handoff drew:
 
 Where the boundary itself was wrong, say so. A unit that could not be built without its neighbour is a finding about the plan, and the dispatching session is the one that can act on it.
 
-## 6. Report what is unresolved
+## 6. Report what you found for others
+
+The handoff named the open units and what each blocked one was blocked on. Answer it: anything you learned that bears on one of them, with its basis.
+
+This is knowledge, not scope. You were right not to act on it, and you would be wrong to drop it, because the alternative is that whichever unit owns that ground pays full price to rediscover what you already know. A pointer costs you a line and saves it a dispatch.
+
+Two things belong here that a summary always loses. The first is the wrong turn: the approach that looked right and was not, and how far in that became clear. The second is anything you built for yourself that another unit could run as-is, a script, a fixture, a query, a repro case. Commit it to the repository and give the path, never the contents.
+
+Where the project has a board, each of these is also a note on it, so it reaches the agent working now instead of waiting on the manager to relay it.
+
+## 7. Report what is unresolved
 
 - Decisions surfaced and left open, each with the options and what turns on them.
 - Assumptions made in order to proceed, each with what backs it.
@@ -58,7 +70,7 @@ Where the boundary itself was wrong, say so. A unit that could not be built with
 
 The last of these is the most valuable line in the report, because the next handoff is about to repeat it.
 
-## 7. Write and deliver
+## 8. Write and deliver
 
 Include a section only where there is real content for it.
 
@@ -80,6 +92,10 @@ Interface
 Boundary
 Left alone: ...
 Went past: ...
+
+Found for others
+<what you learned that bears on another unit, with its basis; the wrong turn worth
+knowing about; anything you built that another unit can run, by path>
 
 Unresolved
 <open decisions, assumptions and what backs them, defects found in the handoff>
