@@ -19,9 +19,11 @@ npx skills@latest update
 ## Reference
 
 Skills split on one axis: who can invoke them. **User-invoked** skills are
-reachable only when you type them, and their job is to orchestrate.
-**Model-invoked** skills can be typed by you *or* reached for automatically by
-the agent when the task fits, and they hold the reusable discipline.
+reachable only when you type them, either because they orchestrate and should
+stay out of the model's way, or because running one is a decision worth making
+deliberately. **Model-invoked** skills can be typed by you *or* reached for
+automatically by the agent when the task fits, and they hold the reusable
+discipline.
 
 ### delivery
 
@@ -52,6 +54,12 @@ agents that implement it, and taking back what they did. Bucket index:
 
 Writing, reviewing, and shipping code. Bucket index:
 [skills/engineering](./skills/engineering/README.md).
+
+**User-invoked**
+
+- [figma-reconciler](./skills/engineering/figma-reconciler/SKILL.md): Compare a
+  Figma design against the running UI in the browser and report where they
+  diverge. Needs the Figma MCP server.
 
 **Model-invoked**
 

@@ -2,6 +2,10 @@
 
 Skills for writing, reviewing, and shipping code.
 
+## User-invoked
+
+- [figma-reconciler](./figma-reconciler/SKILL.md): Compare a Figma design against the running UI in the browser and report where they diverge. Needs the Figma MCP server.
+
 ## Model-invoked
 
 - [context-fix](./context-fix/SKILL.md): Audit a repository's agent context against the code it describes, then repair the defects the repository can prove.
