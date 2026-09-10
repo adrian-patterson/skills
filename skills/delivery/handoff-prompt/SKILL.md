@@ -15,6 +15,10 @@ Writing a handoff changes no code. Read the sources, verify the paths, print the
 
 One sentence naming what the receiving agent delivers, in the vocabulary of the project. If it does not fit one sentence without an "and", it is more than one handoff: say so, propose the split, and write the first one only.
 
+**A batch is the exception, and only for small independent units of the same kind.** Five bug fixes touching different files, under one workspace with one set of validation commands, are one handoff with a numbered item list rather than five handoffs restating the same preamble. On a small unit the shared part is most of the document, and paying for it five times is what makes small units not worth dispatching at all. Each item keeps its own identifier, its own boundary, and its own report.
+
+What disqualifies a batch is dependency, not size: where item 2 has to read item 1's diff to know what to do, they are sequenced units and go out separately. The distinction from a unit that needed an "and" is that a batch's items are separately deliverable and separately reportable, and an "and" is one deliverable with entangled halves.
+
 Capture the identifier the project already uses for this unit (ticket key, issue number, milestone) so every later section can name it.
 
 Then, in one line, the **end** the project is working toward. Then the part that does the work: **the open units, and what each blocked one is blocked on.** Two or three lines, by identifier.
@@ -66,9 +70,17 @@ Copy the build, lint, typecheck, and test commands out of the repository's own m
 
 Then enumerate the cases the work must be tested against, as a numbered list. Enumerating them here is what makes the tests exhaustive rather than representative.
 
-## 7. Write the prompt
+## 7. Size the handoff to the unit
 
-Include a section only where you have real content for it. Omit the rest rather than leaving a heading with a placeholder under it.
+A section earns its place by what the receiving agent would get wrong without it, never by whether you have something to put there. On a large unit that is most of them. On a three-line fix the full set costs more to read than the work costs to do, and the agent pays it before it starts, in a context that will never be reused.
+
+Eight are load-bearing whatever the size: the opening sentence, `Workspace`, `Required reading`, `Requirements`, `Scope boundaries`, `Validation`, `Stopping`, `Report`. They are what stop an agent verifying nothing, absorbing its neighbours, and reaching past the boundary, and none of them is long.
+
+The rest earn their place, and on a small unit usually do not. `Authority order` matters where sources can disagree, and a bug with one repro has one source. `Architecture` matters where new files are being placed. `Baseline to build on` matters where a contract is being reused. `Requirements` at specification detail collapses, on a bug, to the repro and the behaviour expected instead. `Where the others are stuck` collapses on a batch to the other items in it, which the same agent already holds.
+
+Omit the heading along with the section. A heading with a placeholder under it is worse than its absence, because the agent reads it looking for the thing that is not there.
+
+## 8. Write the prompt
 
 ```
 <One sentence: implement <identifier>: <what>.>
@@ -110,6 +122,11 @@ Architecture
 Requirements
 <the behaviour, at specification detail: states, rules, boundaries, error cases>
 
+Items                        <on a batch only; omit the heading otherwise>
+1. <identifier>: <what to deliver, and the files it touches>
+2. ...
+<each item reported separately, with its own verdict>
+
 Scope boundaries
 This unit owns: ...
 This unit does not own: ...
@@ -144,7 +161,7 @@ has to survive the project.>
 <anything this unit must report beyond that skill's own sections>
 ```
 
-## 8. Deliver
+## 9. Deliver
 
 Where the project has a board, call the Skill tool with "project-board" and save the handoff there under the identity it issues. Otherwise print it in one fenced block, the last thing in the reply, ready to paste into a fresh session. Above the block or the path, list in one or two lines anything you could not verify.
 

@@ -21,6 +21,8 @@ One of these, chosen before anything else is written, because a verdict picked l
 - **BLOCKED**: the work cannot proceed without a decision, a fact, or an access this session does not have. What would unblock it is named exactly.
 - **ABANDONED**: work was started and undone. What was reverted, and what state the branch is left in, are both named.
 
+**A batch gets one report per item, each with its own verdict.** The handoff granted several units together to pay for its preamble once; the reports stay separate so the board still shows each unit's outcome, and so a blocked item does not drag a delivered one into its verdict.
+
 **BLOCKED beats a guess.** Never widen the scope, infer a missing fact, or reach past the boundary in order to turn a BLOCKED into a COMPLETE. A blocked unit with its blocker named is a finished report, and it is worth more than a completion that has to be unpicked.
 
 The signals arrive before the verdict does, and they are behavioural: a third distinct approach to the same obstacle, needing access or tooling the handoff never named, or noticing that you have changed *what* you are doing rather than *how*. Each of those means the unit was scoped wrong, not that you were close. An agent that cannot finish rarely stops on its own; it reaches further, and every step of that reaching is work somebody has to unpick later.

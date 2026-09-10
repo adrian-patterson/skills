@@ -76,7 +76,9 @@ Correcting a unit's description, creating one, or resequencing the project is a 
 
 Two kinds of dispatch. What separates them is the grant, not the tooling.
 
-**A write unit, one at a time**, when the user says to proceed. Before dispatching, check the board for an open write grant: a handoff granting write with no matching report. If one is open, that unit is still live and this dispatch does not happen. Two agents editing at once make silently conflicting assumptions that surface only where their work meets, which costs more than the sequencing saved.
+**A write unit, one at a time**, when the user says to proceed. Before dispatching, check the board for an open write grant: a handoff granting write with no matching report, or a batch handoff with an item that has none. If one is open, that unit is still live and this dispatch does not happen. Two agents editing at once make silently conflicting assumptions that surface only where their work meets, which costs more than the sequencing saved.
+
+**Where the next units are small and independent, batch them into one handoff.** Five bug fixes in different files sharing one set of validation commands are one dispatch, not five. Dispatched separately they pay for the same workspace, required reading, authority order and commands five times over, and cost you five board sweeps and five close-the-loop cycles on top. It is still one write grant held by one agent, so the invariant holds and nothing runs in parallel that should not. Give the batch its own identifier, name the items in it, and expect one report per item. This is the gear for a bug queue. A unit whose boundary another unit depends on still goes out alone.
 
 **Readers, as many at once as there are questions worth answering.** A reader investigates, reviews, or maps the ground for a unit not yet dispatched, and never edits, commits, or pushes. Dispatch these freely while a write unit runs: their notes land on the board and the next handoff cites them instead of paying to rediscover the same ground. This is where the parallelism in this role actually lives.
 

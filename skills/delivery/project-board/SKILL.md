@@ -29,6 +29,16 @@ The board holds coordination. The repository holds the work. A post containing t
 
 Filenames are `<unit>.<type>.<instance>[.<status>].md`, so `ls posts/` gives the state of the whole project without opening anything: every unit, every attempt, every outcome. A handoff with no matching report is open.
 
+A **batch handoff** grants several small independent units at once under a batch identifier, because on a small unit the shared preamble is most of the handoff and paying for it once is the whole point. It names its items in frontmatter and returns **one report per item**, so the listing still shows what happened to each:
+
+```
+B-07.handoff.01.md            items: U-201, U-202, U-203
+U-201.report.01.COMPLETE.md
+U-202.report.01.BLOCKED.md
+```
+
+A batch is open until every item it names has a report. Batching changes how many handoffs are written, never how many write grants are open: the batch is one grant, held by one agent.
+
 One project has exactly one board, named in every handoff, even when the work spans several repositories. Two boards means two projects.
 
 ## Identity
@@ -65,7 +75,7 @@ Issued by the manager. Written by calling the Skill tool with "handoff-prompt", 
 type: handoff
 from: manager/project
 to: impl/U-142/01
-unit: U-142
+unit: U-142            # on a batch: the batch id, with items: [U-201, U-202]
 grants: write          # or read
 carries: U-142.report.01   # on a retry, the previous attempt's report
 date: 2026-09-05
