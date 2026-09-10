@@ -134,7 +134,13 @@ you are close. A BLOCKED report naming the obstacle is a finished outcome, and i
 the wanted one.
 
 Report
-When the work is finished, blocked, or abandoned, call the Skill tool with "handoff-report" and return the report it produces, verbatim.
+When the work is finished, blocked, or abandoned, call the Skill tool with "handoff-report".
+<Where this handoff named a board: save the report there, and return three lines and
+nothing else: the verdict, the path it was saved to, and the one-sentence summary.
+The dispatching session reads the section it needs from the board. Returning the body
+as well makes it pay for the whole document a second time, in the one context that
+has to survive the project.>
+<Where it did not: return the report verbatim.>
 <anything this unit must report beyond that skill's own sections>
 ```
 
@@ -150,4 +156,5 @@ When another agent invoked this skill in order to dispatch the work itself, retu
 - **Nothing refers to this conversation.** No "as we discussed", no "the file we just changed", no pronoun whose referent is in this session. The receiving agent has none of it.
 - **Point, do not paraphrase.** Restate only what lives in no file: the decisions, the boundary, the authority order.
 - **Instruct it to report gaps, not infer them.** Where a fact is unavailable, the receiving agent says so and stops rather than guessing from the nearest similar code.
+- **Write it as data, not prose.** Lines under each heading, not paragraphs. The receiving agent is looking for the boundary, the commands, and the paths, and everything sitting between those is context it pays for before it starts.
 - **Leave no open question inside the handoff.** Resolve it, or mark it a decision point the receiving agent must surface before it starts editing.

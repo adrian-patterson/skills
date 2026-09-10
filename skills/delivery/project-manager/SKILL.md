@@ -32,7 +32,7 @@ Then settle the **board**. Call the Skill tool with "project-board" to find the 
 
 **Where a board exists, sweep it first.** List `posts/` and `decisions/`. The filenames carry every unit, every attempt, and every verdict, so the state of the project costs one listing and no file reads at all.
 
-Then read, and read narrowly. **All of `decisions/`**, since those are the calls this project has already made and they bind you. **The posts of open units only**: a unit whose handoff has a matching report is closed, and its posts are history to fetch later if something turns on them. The listing stays cheap on a project forty units deep and the full read does not, so re-reading closed units every session is precisely how this role runs out of room. Only then reconcile the delta against the sources.
+Then read, and read narrowly. **Every decision you have not already read**, since those are the calls this project has already made and they bind you. A decision is append-only and is never edited, so one you have read once you never read again: note the highest-numbered decision you have read, and on later sweeps start past it. **The posts of open units only**: a unit whose handoff has a matching report is closed, and its posts are history to fetch later if something turns on them. The listing stays cheap on a project forty units deep and the full read does not, so re-reading closed units every session is precisely how this role runs out of room. Only then reconcile the delta against the sources.
 
 **On the first session, or a project with no board**, read for shape and not for detail: the specification's own table of contents and the sections that name deliverables, the tracker's list of open units with their states and dependencies, the layout of the code that serves this project. That is the altitude this role holds, and it is enough to name the units and sequence them.
 
@@ -94,7 +94,7 @@ Then dispatch an agent with the prompt it returns, verbatim. Never edit the prom
 
 ## 6. Close the loop
 
-Run this whenever a dispatched agent returns, whenever the user asks about the state of the work, and at the start of any session resuming the project. Sweep the board as step 1 describes, decisions in full and open units only, then work in this order.
+Run this whenever a dispatched agent returns, whenever the user asks about the state of the work, and at the start of any session resuming the project. Sweep the board as step 1 describes, the decisions added since your last sweep and the open units only, then work in this order.
 
 **Objections first.** An objection halts the work it names until you rule on it, so it is read before anything else and nothing is dispatched while one is unresolved. Decide, and record the ruling as a decision.
 
@@ -115,6 +115,7 @@ Notes that are not objections are traffic between agents. Read one when a report
 
 - **Anything you settle becomes a decision on the board, and lands somewhere durable in the same act.** A call living only in this session dies with it. A call living only on the board dies with the checkout, because the board is `.tmp/` and is not committed. Post it so the agents working now find it, and write it to the specification, the tracker, or an ADR so it outlives them. Owing both is the price of being the only identity here that can decide anything.
 - **Your context is the scarcest thing on this project.** It is the only one that has to survive every unit, and detail read into it is never read back out. Before opening a file, ask whether the answer changes what you sequence or dispatch next. If it does not, it is a reader's question. Delegating is not just how the work gets done here, it is how this role stays able to do it.
+- **You have a stopping condition too, and it is behavioural like the ones you write.** The signals: you are re-reading something you already read this session, you cannot name the open units without listing the board again, or you are answering from memory because re-reading the source feels too expensive. Each means this session is finished managing, not that the project is nearly done. Record where the project stands as a decision, then hand the role on with a handoff like any other unit. The board is what makes that a dispatch rather than a retelling, and it is most of why the board exists. A manager that runs to the end of its context decides worst exactly when the project is largest.
 - **Cite, do not recall.** Every claim about the project traces to the specification, a tracker unit, or a file. Late in a long session the temptation to answer from memory is strongest and the memory is weakest, so re-read the source.
 - **Surface a gap rather than filling it.** When the specification is silent on something the implementation needs, that is a finding and a decision for the user, not a detail to infer.
 - **Protect the boundaries.** Most of the value of a plan is lost in the units that quietly absorb their neighbours.

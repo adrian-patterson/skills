@@ -101,11 +101,14 @@ Unresolved
 <open decisions, assumptions and what backs them, defects found in the handoff>
 ```
 
-Where the handoff named a board, call the Skill tool with "project-board" and save the report there. Otherwise print it in one fenced block, the last thing in the reply, ready to paste into the dispatching session. Above the block or the path, list in one or two lines anything that could not be verified.
+Where the handoff named a board, call the Skill tool with "project-board" and save the report there, then return the verdict, the path, and the one-sentence summary. Those three lines are the whole reply: the report is on the board, and the dispatching session reads the section its verdict points at. Returning the body as well is how a manager ends up holding every report it ever dispatched.
+
+Otherwise print it in one fenced block, the last thing in the reply, ready to paste into the dispatching session. Either way, list in one or two lines anything that could not be verified.
 
 ## Grounding rules
 
 - **Cite, do not recall.** Every claim traces to the diff, to a command's output, or to a file. At the end of a long implementation session the memory of what landed is weakest exactly where it feels most settled.
 - **Nothing refers to this session.** No "as noted above", no "the file we just changed", no pronoun whose referent is in this conversation. The reader has none of it.
 - **Every identifier resolves.** A path, command, or unit name that does not exist in the repository costs the reader more than an omission, because they spend their first minutes proving the report wrong.
+- **Write it as data, not prose.** Lines under each heading: paths, identifiers, commands, verdicts, one-clause findings. No preamble, no restating the handoff back, no sign-off. Compress the shape, never the basis: the path and line, the exact command, and the word marking a claim as inference are what make a short report checkable instead of merely confident.
 - **A bad outcome reported plainly beats a good one reported vaguely.** The report is read by a session that will check it against the repository, so hedging only delays the correction.

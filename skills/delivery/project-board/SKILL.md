@@ -158,6 +158,18 @@ Read `decisions/` first, then the posts for your unit, then the posts for units 
 - **Reading the board never widens your boundary.** A post suggesting your boundary is wrong produces a report, not an edit.
 - **Where a post contradicts your grant, the grant wins**, and the contradiction goes in your report.
 
+## Register
+
+Posts are read by agents, not by people. Write them as data.
+
+The fixed headings and frontmatter exist so a reader can find one field without reading prose to get to it. Keep what sits under them to lines: paths, identifiers, commands, verdicts, one-clause findings. Two or three lines under a heading is the normal length.
+
+Cut the preamble, the restatement of the unit back to whoever issued it, the recap of what the board already holds, the sign-off, and the narrative of how the work went. What you tried that worked is the diff. What you tried that failed is one line under `Found for others`, and only where it cost real time. A long post means the unit was too big, the reader is being asked to do the summarising, or a decision is hiding in prose where nobody will find it.
+
+**Compress the prose, never the basis.** Terseness fails in exactly one direction and it fails silently: the first thing brevity eats is provenance. `basis` drops off, a file and line becomes "the auth code", and the checked claim and the guessed one end up in the same clipped register with nothing left to tell them apart. Keep the path and line, the exact command, the identifier, and the word that marks a claim as inference rather than checked. A short post standing on a path outweighs a long one; a short post standing on nothing spreads a wrong premise faster than a verbose one would, because it reads as certain.
+
+This governs agents talking to each other. It does not govern the manager talking to the user, who is not reading the board and needs plain language.
+
 ## Posting
 
 - **Append only.** Never edit or delete an existing post. A correction is a new post; a retry is a new instance.
