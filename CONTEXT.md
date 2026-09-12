@@ -24,8 +24,21 @@ non-promoted buckets.
 **Unit**:
 One piece of a project's work, small enough that a single agent can carry it to
 completion and large enough to be worth handing off. What a tracker item names,
-a handoff scopes, and a report closes.
+a handoff scopes, and the manager accepts after verification and required
+integration.
 _Avoid_: task, ticket, story, chunk
+
+**Milestone**:
+The next project outcome the user can accept, with explicit acceptance criteria
+and the units needed to deliver it. One is active; later outcomes remain backlog.
+
+**Attempt**:
+One execution of a unit under a grant, ending in a report. A returned attempt may
+leave the unit pending verification, integration, or another attempt.
+
+**Acceptance**:
+The manager's evidence-backed decision that a unit meets its acceptance criteria
+and required integration state. Distinct from an agent reporting completion.
 
 **Boundary**:
 The line between what a unit owns and what its siblings own. Stated as two
@@ -53,7 +66,7 @@ recover from the repository. The artifact, never the act of delegating.
 _Avoid_: brief, spec, task prompt
 
 **Report**:
-What a finished unit returns to the session that dispatched it, carrying the
+What an attempt returns to the session that dispatched it, carrying the
 verdict, what landed, and the interface the next unit calls. The artifact, never
 the act of reporting. Pairs with a handoff, one each way.
 _Avoid_: summary, update, status
@@ -85,6 +98,11 @@ The explicit ranking of a project's sources, deciding which one wins where they
 disagree. Stated in every handoff, since a receiving agent has no other way to
 resolve a conflict.
 
+**Capability tier**:
+A provider-agnostic level of agent capability, low, medium, or high, matched to
+a unit's complexity, uncertainty, and consequences of error. Distinct from its
+read or write grant and effort budget.
+
 **Invocation**:
 Who can reach a skill: **model-invoked** (model or user) or **user-invoked**
 (human only). See `.agents/invocation.md`.
@@ -97,8 +115,9 @@ Who can reach a skill: **model-invoked** (model or user) or **user-invoked**
 - A **Skill** has exactly one **Invocation** mode
 - A **Handoff** carries exactly one **Authority order**, and states the project's
   one **End** plus the open **Units** and what each blocked one is blocked on
-- A **Handoff** dispatches exactly one **Unit**, and exactly one **Report**
-  closes it
+- A **Handoff** dispatches an **Attempt** of a **Unit**; its **Report** closes
+  the attempt, and **Acceptance** closes the unit. A batch shares one grant
+  across independent units and returns one report per item
 - A **Unit** has exactly one **Boundary**, which the **Handoff** states and the
   **Report** answers against
 - A **Board** holds many **Posts**, and every **Handoff** and **Report** is one

@@ -5,7 +5,7 @@ work to the agents that implement it, and taking back what they did.
 
 ## User-invoked
 
-- [project-manager](./project-manager/SKILL.md): Lead a multi-session project. Reconciles the specification, the tracker, and the code, sequences the work, and delegates each unit to an implementation agent.
+- [project-manager](./project-manager/SKILL.md): Lead a multi-session project one milestone at a time, with bounded delegation and verified acceptance.
 
 ## Model-invoked
 

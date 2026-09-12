@@ -21,11 +21,11 @@ What disqualifies a batch is dependency, not size: where item 2 has to read item
 
 Capture the identifier the project already uses for this unit (ticket key, issue number, milestone) so every later section can name it.
 
-Then, in one line, the **end** the project is working toward. Then the part that does the work: **the open units, and what each blocked one is blocked on.** Two or three lines, by identifier.
+Then, in one line, the **end** the project is working toward. Then the part that does the work: **the relevant open units in the active milestone, and what each blocked one is blocked on.** Two or three lines, by identifier.
 
 That list is what makes an agent post. An agent knowing only its own deliverable treats everything else it meets as noise, having nothing to measure it against, and the cost lands on whichever unit later pays full price to rediscover it. An agent that knows U-143 has been stuck on the thing it just worked out will say so. The reciprocity is structural rather than moral: whoever reads this list is on it next week.
 
-Where the project has a board this is a listing, not an investigation. An open handoff with no matching report is a live unit, and a `report.<nn>.BLOCKED` is a blocked one. A peer issuing a read grant holds no plan to draw on and takes the list from exactly there, saying that is where it came from.
+Where the project has a board this is a listing, not an investigation. An open handoff with no matching report is a live attempt; a returned attempt may still await verification, integration, or a retry. Use manager acceptance decisions to identify accepted units. Carry the manager's reader allocation; a peer's request for help is not a grant.
 
 The list is also what is most likely to be misread as permission, so the handoff states which way it cuts: **what other units need decides what you report; the boundary decides what you do.** Section 4 is what this agent may act on, and it wins.
 
@@ -60,15 +60,17 @@ The second list is what stops a capable agent from absorbing the neighbouring wo
 
 An agent that cannot finish rarely stops. It reaches further: another approach, a tool it was not given, access it was not granted, a redefinition of the task that makes its current position count as progress. The pattern is well documented, it gets stronger the longer the agent runs, and it is the single most expensive thing a handoff can fail to pre-empt, because by the time it shows up in a report the work is already somewhere the plan did not put it.
 
-The bound that works is behavioural, not a clock. Write the signals into the prompt: a third distinct approach to the same obstacle, reaching for access or tooling this handoff did not name, or changing *what* is being done rather than *how*. Each of those means the unit is wrong, not that the agent is close.
+Use both an effort budget and behavioural stopping conditions. Write the signals into the prompt: a third distinct approach to the same obstacle, reaching for access or tooling this handoff did not name, or changing *what* is being done rather than *how*. Each of those means the unit is wrong, not that the agent is close.
 
 Say plainly that stopping there is the wanted outcome. A `BLOCKED` report naming the obstacle costs the project one dispatch. A unit delivered by going around the obstacle costs it the next three.
+
+Carry a concrete token, cost, tool-call, or elapsed-time allowance from the dispatcher, or state a proportional allowance when none was supplied. Name how it is tracked, reserve verification and reporting within it, and return remaining work when it is exhausted. Include the manager's helper allocation, defaulting to none; the worker cannot renew its own budget or recruit extra readers.
 
 ## 6. Establish verification
 
 Copy the build, lint, typecheck, and test commands out of the repository's own manifests, with the directory each runs from. Never invent a command or assume a conventional one.
 
-Then enumerate the cases the work must be tested against, as a numbered list. Enumerating them here is what makes the tests exhaustive rather than representative.
+State the acceptance criteria and required integration state, such as a merged revision or a reviewed artifact. Then enumerate the cases the work must be tested against, as a numbered list. Enumerating them here is what makes the tests exhaustive rather than representative.
 
 ## 7. Size the handoff to the unit
 
@@ -141,9 +143,12 @@ Workflow
 <ordered steps, ending in a plan the agent surfaces before editing>
 
 Validation
-<exact commands, with their directories>
+<exact commands, with their directories; acceptance criteria and required integration state>
 
 Stopping
+<effort allowance, tracking method, and verification/reporting reserve>
+<authorized helper allocation; none unless granted>
+Return PARTIAL or BLOCKED with remaining work when the allowance is exhausted.
 Stop and report when you reach a third distinct approach to the same obstacle, when
 you need access or tooling this handoff did not name, or when you notice you have
 changed what you are doing rather than how. Those mean the unit is wrong, not that
@@ -172,6 +177,6 @@ When another agent invoked this skill in order to dispatch the work itself, retu
 - **Every path in the prompt exists.** A wrong path costs the receiving agent more than an omitted one, because it spends its first minutes proving the handoff wrong.
 - **Nothing refers to this conversation.** No "as we discussed", no "the file we just changed", no pronoun whose referent is in this session. The receiving agent has none of it.
 - **Point, do not paraphrase.** Restate only what lives in no file: the decisions, the boundary, the authority order.
-- **Instruct it to report gaps, not infer them.** Where a fact is unavailable, the receiving agent says so and stops rather than guessing from the nearest similar code.
+- **Instruct it to report gaps, not infer them.** Surface missing facts that change behaviour, scope, or acceptance. Permit routine reversible implementation choices consistent with the contract, and report material assumptions.
 - **Write it as data, not prose.** Lines under each heading, not paragraphs. The receiving agent is looking for the boundary, the commands, and the paths, and everything sitting between those is context it pays for before it starts.
 - **Leave no open question inside the handoff.** Resolve it, or mark it a decision point the receiving agent must surface before it starts editing.

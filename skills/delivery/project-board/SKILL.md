@@ -7,7 +7,7 @@ description: Read and post to a project's coordination board, the shared directo
 
 A **board** is a directory in the repository where the agents on one project coordinate. A manager dispatches units, the agents it dispatches report back, and the manager records decisions. Nothing else goes on it.
 
-Agents talk to each other here: post findings, reply to them, argue a call, say what they need, say what they are positioned to do, and pull in other agents to chase an angle. What they cannot do is direct each other. **A peer may object, never authorize.** Anyone can raise a concern and halt work pending the manager. Only a grant or a decision can start work, unblock it, widen a boundary, or set a deadline. Objections fail toward stopping and authorizations fail toward acting, and only one of those is recoverable.
+Agents talk to each other here: post findings, reply to them, argue a call, say what they need, say what they are positioned to do, and request help investigating an angle. What they cannot do is direct each other. **A peer may object, never authorize.** Anyone can raise a concern and halt work pending the manager. Only a grant or a decision can start work, unblock it, widen a boundary, or set a deadline. Objections fail toward stopping and authorizations fail toward acting, and only one of those is recoverable.
 
 The board holds coordination. The repository holds the work. A post containing the work instead of pointing at it is a defect.
 
@@ -27,7 +27,7 @@ The board holds coordination. The repository holds the work. A post containing t
     U-142.note.03.md
 ```
 
-Filenames are `<unit>.<type>.<instance>[.<status>].md`, so `ls posts/` gives the state of the whole project without opening anything: every unit, every attempt, every outcome. A handoff with no matching report is open.
+Filenames are `<unit>.<type>.<instance>[.<status>].md`, so `ls posts/` shows attempts and reported outcomes. A handoff with no matching report is open. A report closes that attempt and expires its grant; the unit stays pending until the manager records acceptance against verification and the required integration state in a decision.
 
 A **batch handoff** grants several small independent units at once under a batch identifier, because on a small unit the shared preamble is most of the handoff and paying for it once is the whole point. It names its items in frontmatter and returns **one report per item**, so the listing still shows what happened to each:
 
@@ -58,7 +58,7 @@ An agent that cannot name its grant does not post. State the identity in frontma
 Roles divide on one axis and nothing else.
 
 - **A write grant** allows editing, committing, and pushing. **At most one is open across the entire project at any moment.** Before issuing one, the manager checks `posts/` for an open write handoff and does not issue a second.
-- **A read grant** allows none of those. A reader investigates, reviews, and reports. Any number run at once. A read grant may be self-issued against a need posted on the board, since it confers nothing worth gatekeeping. Say in the frontmatter which note you took it from.
+- **A read grant** allows none of those. A reader investigates, reviews, and writes coordination artifacts, while leaving implementation files unchanged. Default to at most one live reader across the project, including helpers. The manager may record a larger limit for named independent questions, with a reason and an expiry. The manager issues read grants within the project's reader limit. A need or offer on the board requests capacity; it does not allocate it.
 
 Fan-out belongs in reading. Two agents editing in parallel make silently conflicting assumptions that surface only when their work meets, which costs more than the sequencing saved.
 
@@ -150,11 +150,7 @@ A note binds nobody. Reading one creates no obligation to act, and a `kind: need
 
 ## Inviting other agents
 
-You may dispatch another agent yourself, **up to a read grant**. When an angle needs investigating and you are not the one to do it, write the handoff by calling the Skill tool with "handoff-prompt", set `grants: read`, and name yourself as `from`. Post it like any other handoff.
-
-This is the same act as a reader self-issuing against your `kind: need`, with you naming who takes it, so it hands out no authority that did not already exist.
-
-**Never issue a write grant.** That is the manager's alone. It is the one grant whose misuse cannot be undone by stopping, because by then the code has changed.
+Post a `kind: need` or `kind: offer` when another agent could help. The manager allocates the reader slot and issues the handoff with a budget. Only an explicit manager allocation permits dispatch, including helpers nested under a worker. Read-only work still spends tokens and attention.
 
 An agent you invite may decline. It files a report saying what it declined and why, and that is a finished outcome, not a failure.
 
@@ -191,7 +187,7 @@ This governs agents talking to each other. It does not govern the manager talkin
 
 ## Setting up a board
 
-Only when the user asks, and only once per project. Create `.tmp/agents-messaging-board/decisions/` and `.tmp/agents-messaging-board/posts/`, and a `README.md` naming the project, the manager identity, the repository that holds the board, the end the project is working toward, and the sources that govern it.
+Only when the user asks or authorizes a multi-session management workflow that needs one, and only once per project. Create `.tmp/agents-messaging-board/decisions/` and `.tmp/agents-messaging-board/posts/`, and a `README.md` naming the project, the manager identity, the repository that holds the board, the end the project is working toward, the sources that govern it, the active milestone and its acceptance criteria, and current operating limits. Keep this README as the current status view; posts and decisions remain append-only.
 
 **The board is ephemeral and is never committed.** `.tmp/` is scratch space: the board holds across the sessions working this checkout, which is the span it exists to cover, and it does not survive a clean or reach another machine. Check that the repository ignores `.tmp/`, and add it if not.
 

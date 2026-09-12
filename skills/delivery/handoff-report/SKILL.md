@@ -5,7 +5,7 @@ description: Write the report a finished unit of work returns to the session tha
 
 # Handoff report
 
-A **report** is what a finished unit returns to the session that dispatched it. It is the other half of a handoff: the handoff carried what the receiving agent could not recover from the repository, and the report carries what the dispatching session cannot recover from this one.
+A **report** is what an attempt returns to the session that dispatched it. It is the other half of a handoff: the handoff carried what the receiving agent could not recover from the repository, and the report carries what the dispatching session cannot recover from this one.
 
 That session has no transcript of this one, no tool output, no diff. It has the boundary it drew and the repository. Everything else, it learns here.
 
@@ -27,6 +27,8 @@ One of these, chosen before anything else is written, because a verdict picked l
 
 The signals arrive before the verdict does, and they are behavioural: a third distinct approach to the same obstacle, needing access or tooling the handoff never named, or noticing that you have changed *what* you are doing rather than *how*. Each of those means the unit was scoped wrong, not that you were close. An agent that cannot finish rarely stops on its own; it reaches further, and every step of that reaching is work somebody has to unpick later.
 
+The verdict closes this attempt and its grant. The manager accepts the unit separately against verification and the required integration state; `COMPLETE` alone does not assert that a branch is merged or the unit accepted.
+
 ## 2. Establish what landed
 
 Read the diff. Do not recall it.
@@ -40,6 +42,8 @@ Read the diff. Do not recall it.
 Take the commands from the handoff's validation section, or from the repository's own manifests where the work arrived without one. Give the result of each: passed, failed, or not run with the reason. Name the directory each ran from.
 
 Never report a check that was not run, and never report a result from memory. A skipped check said plainly costs the reader a minute. A check reported as passing that never ran costs them the next unit.
+
+Include available token or cost usage, elapsed time, and whether the allowance was exhausted. Mark unavailable measurements as unavailable rather than estimating them as facts.
 
 ## 4. Report the interface
 
