@@ -66,6 +66,8 @@ Use an available token or cost limit when it can be measured; otherwise specify 
 
 Batch small independent units sharing setup and validation into one writer handoff with one report per item. Keep dependent units separate. Send the prepared handoff verbatim, with only the context needed for that unit rather than the full conversation.
 
+Dispatch each writer into its own **worktree** on a branch named from the unit identifier, using the dispatch tool's worktree isolation rather than instructions to the worker. The worker commits, verifies, and reports on that branch, leaving the manager's checkout untouched for cheap checks. A batched handoff shares one worktree and branch. The handoff carries the setup commands the worktree needs for dependencies, environment files, and caches, since none of those follow a checkout. Where the board lives in the repository, the worker commits its report on its branch and the manager reads it there.
+
 A lookahead reader is optional. Dispatch one only when its answer will affect the next decision and is unlikely to be invalidated by the current implementation. Waiting for a writer is otherwise useful and costs no investigation tokens.
 
 After dispatch, wait for the result using the available agent wait mechanism. Avoid repeated status checks and duplicate verification while the worker is still producing that evidence. If the environment cannot wait, name the dispatch, report location, and how to resume the acceptance step.
@@ -81,6 +83,8 @@ On return, read the report's verdict and the sections needed to decide: `Deliver
 A report is evidence, not acceptance. Confirm the relevant revision or artifact and verification results. Cheap checks belong here; substantial independent validation can use the reader slot. Repeat checks only for missing evidence, changed code, failures, or unresolved concerns.
 
 Record acceptance as a decision referencing the unit, report, verified artifact or revision, and integration state. Use the existing decision format, not a new post type. If the handoff requires a merge, an unmerged branch remains pending integration. If it requires a reviewed artifact, use that criterion instead. Acceptance within standing authority needs no extra user confirmation; require human acceptance only when the project calls for it.
+
+Integration is the manager's step, taken after acceptance. Where the required integration state is a merged revision, merge the unit's branch into the branch the manager was invoked on, then remove the worktree and delete the branch; record the merged revision in the acceptance decision. Where it is a pull request, open or merge it under the project's policy and remove the worktree once merged. A `PARTIAL` or `BLOCKED` attempt keeps its branch for the next attempt to resume from; only the worktree goes. The dispatch tool removes only an unchanged worktree, so this cleanup is always explicit.
 
 Fold the accepted interface into the plan and reconsider only affected dependencies. Advance within the authorized milestone. When all its criteria are met, report its outcome and propose the next milestone; start it only when existing authorization covers it.
 

@@ -70,7 +70,7 @@ Carry a concrete token, cost, tool-call, or elapsed-time allowance from the disp
 
 Copy the build, lint, typecheck, and test commands out of the repository's own manifests, with the directory each runs from. Never invent a command or assume a conventional one.
 
-State the acceptance criteria and required integration state, such as a merged revision or a reviewed artifact. Then enumerate the cases the work must be tested against, as a numbered list. Enumerating them here is what makes the tests exhaustive rather than representative.
+State the acceptance criteria and required integration state, such as a merged revision or a reviewed artifact. The merge is the manager's step after acceptance; the worker leaves its branch committed and reports its revision. Then enumerate the cases the work must be tested against, as a numbered list. Enumerating them here is what makes the tests exhaustive rather than representative.
 
 ## 7. Size the handoff to the unit
 
@@ -90,7 +90,8 @@ Omit the heading along with the section. A heading with a placeholder under it i
 Workspace
 - <repo root>
 - Target: <package or path>
-- <commit, push, and PR policy>
+- Worktree on branch <unit identifier>; setup commands it needs: <dependencies, env files, caches>
+- <commit, push, and PR policy; where the board is in the repository, the report is committed on this branch>
 
 Authoritative context
 <each source, with the exact URL or path and how to reach it>
