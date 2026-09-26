@@ -33,8 +33,9 @@ The next project outcome the user can accept, with explicit acceptance criteria
 and the units needed to deliver it. One is active; later outcomes remain backlog.
 
 **Attempt**:
-One execution of a unit under a grant, ending in a report. A returned attempt may
-leave the unit pending verification, integration, or another attempt.
+One execution of a unit under a grant, ending in a report or a manager recovery
+decision when interrupted. A closed attempt may leave the unit pending
+verification, integration, or another attempt.
 
 **Acceptance**:
 The manager's evidence-backed decision that a unit meets its acceptance criteria
@@ -91,7 +92,8 @@ only kind a peer may act on unprompted is an objection, which halts.
 **Grant**:
 What a handoff issues along with an identity: the unit, the boundary, and
 whether the receiving agent may write or only read. It is what makes an
-asserted identity checkable, and it expires when the report is filed.
+asserted identity checkable. It expires when the report is filed or a manager
+recovery decision revokes it.
 
 **Authority order**:
 The explicit ranking of a project's sources, deciding which one wins where they
@@ -115,14 +117,15 @@ Who can reach a skill: **model-invoked** (model or user) or **user-invoked**
 - A **Skill** has exactly one **Invocation** mode
 - A **Handoff** carries exactly one **Authority order**, and states the project's
   one **End** plus the open **Units** and what each blocked one is blocked on
-- A **Handoff** dispatches an **Attempt** of a **Unit**; its **Report** closes
-  the attempt, and **Acceptance** closes the unit. A batch shares one grant
-  across independent units and returns one report per item
+- A **Handoff** dispatches an **Attempt** of a **Unit**; its **Report** or a
+  manager recovery decision closes the attempt, and **Acceptance** closes the
+  unit. A batch shares one grant across independent units and returns one report
+  per item
 - A **Unit** has exactly one **Boundary**, which the **Handoff** states and the
   **Report** answers against
 - A **Board** holds many **Posts**, and every **Handoff** and **Report** is one
-- A **Handoff** issues exactly one **Grant**, and at most one write **Grant**
-  is open across a project at a time
+- A **Handoff** issues exactly one **Grant**. One write **Grant** is the default;
+  explicitly user-authorized parallel writers require a bounded manager decision
 
 ## Flagged ambiguities
 

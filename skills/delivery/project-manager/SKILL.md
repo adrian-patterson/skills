@@ -18,13 +18,13 @@ Use sources already named in the session. Ask for a missing source only when it 
 
 Fix the **authority order**: which source defines behaviour, refines technical detail, scopes a unit, or supplies patterns. Existing code supplies patterns unless no other source defines behaviour.
 
-For multi-session coordination, call the Skill tool with "project-board" to locate or set up the project's one board. Record the active milestone, acceptance criteria, and operating limits in its README. When taking over existing work, count live grants before dispatching anything; if over the limits, let them finish or cancel them and obtain a final report closing each grant before adding work.
+For multi-session coordination, call the Skill tool with "project-board" to locate or set up the project's one board. Record the active milestone, acceptance criteria, and operating limits in its README. When taking over existing work, reconcile live grants before dispatching anything; if over the limits, let them finish or close cancelled attempts before adding work. For missing reports, interrupted workers, or a restart with uncertain state, read [RECOVERY.md](RECOVERY.md).
 
 Completion criterion: the active milestone, its acceptance criteria, authority order, and live work are explicit. Mapping the whole backlog is unnecessary unless the user requested it.
 
 ## 2. Reconcile only what affects this milestone
 
-Sweep the board first: list posts and decisions, read new decisions, then live attempts and returned attempts still awaiting acceptance. A matching report closes an attempt and its grant, not the unit. Use acceptance decisions to distinguish accepted units from work still pending. Read older accepted work only when a dependency or disputed claim requires it.
+Sweep the board first: list posts and decisions, read new decisions, then live attempts and returned attempts still awaiting acceptance. A matching report or manager recovery decision closes an attempt and its grant, not the unit. Use acceptance decisions to distinguish accepted units from work still pending. Read older accepted work only when a dependency or disputed claim requires it.
 
 Compare the relevant specification sections, tracker units, and code for:
 
@@ -42,7 +42,9 @@ Completion criterion: each active unit has a boundary, dependency order, and acc
 
 Default to **one writer and at most one reader across the project**, including any helpers workers request. The writer owns investigation, implementation, and verification within its unit. A reader owns a substantial question or review and may publish coordination artifacts, but cannot change the implementation.
 
-One write grant remains the project invariant. Increase the reader limit only for named independent questions whose expected value justifies the extra cost. Record the reason, limit, and when it returns to the default. A spare concurrency slot is not a reason to fill it.
+Parallel writers require explicit user authorization, including standing authorization already given. Before dispatch, record a decision naming the units, writer limit and expiry, boundaries, shared-file owners, workspace isolation, and integration order. Serialize shared-file edits and shared-checkout staging, commits, and integration, including the manager's own changes. If those ownership boundaries cannot be maintained, sequence the units.
+
+Increase the reader limit only for named independent questions whose expected value justifies the extra cost. Record the reason, limit, and when it returns to the default. A spare concurrency slot is not a reason to fill it.
 
 Before dispatching, check live grants on the board. Peers post requests for help; the manager allocates the reader slot. Issue no further delegation until outstanding objections have been ruled on.
 
@@ -59,14 +61,14 @@ Call the Skill tool with "handoff-prompt" to prepare each dispatch. Supply:
 - Unit identifier and name, read or write grant, boundary, and authority order.
 - The project's end, active milestone, relevant sibling dependencies, and source pointers.
 - Acceptance criteria, required verification, and where the result must be integrated.
-- A concrete effort budget and stopping condition, plus whether any helper is authorized.
+- An effort estimate, reassessment checkpoint, any hard limits, and stopping conditions, plus whether any helper is authorized.
 - Capability-tier classification, resolved model selection, and rationale, or the disclosed selection limitation.
 
-Use an available token or cost limit when it can be measured; otherwise specify a tool-call or elapsed-time budget that the worker can track. Use the user's budget where given, or state a proportional starting allowance. Reserve enough of it for verification and reporting. Exhausting the allowance returns a PARTIAL or BLOCKED report with remaining work and a proposed next step; it never silently renews the budget or waives acceptance checks.
+Use measurable tokens, cost, tool calls, or elapsed time. Distinguish a planning estimate from a hard limit; preserve the user's stated limits and finish-through-overrun directions. At the estimate or an earlier named checkpoint, the worker sends the manager usage, remaining work, and a revised estimate without closing the grant, and may continue within the same scope and hard limits. Reserve effort for verification and reporting. A hard limit, including a paid-call cap, stops the affected work and returns PARTIAL or BLOCKED with the remainder; only its authorizing source can extend it. Use actual overruns to size the next handoff.
 
 Batch small independent units sharing setup and validation into one writer handoff with one report per item. Keep dependent units separate. Send the prepared handoff verbatim, with only the context needed for that unit rather than the full conversation.
 
-Dispatch each writer into its own **worktree** on a branch named from the unit identifier, using the dispatch tool's worktree isolation rather than instructions to the worker. The worker commits, verifies, and reports on that branch, leaving the manager's checkout untouched for cheap checks. A batched handoff shares one worktree and branch. The handoff carries the setup commands the worktree needs for dependencies, environment files, and caches, since none of those follow a checkout. Where the board lives in the repository, the worker commits its report on its branch and the manager reads it there.
+Use the project's workspace policy. Where isolation is allowed, dispatch each writer into its own **worktree** on a branch named from the unit, applying isolation through the tool when available. Keep active worktrees outside OS temporary directories and preserve implementation checkpoints on their branches. A batch shares one workspace. Carry dependency, environment, and cache setup commands in the handoff. Name the existing board by absolute path; reports stay untracked there. If the worker cannot access it, the manager saves the returned report there with its provenance.
 
 A lookahead reader is optional. Dispatch one only when its answer will affect the next decision and is unlikely to be invalidated by the current implementation. Waiting for a writer is otherwise useful and costs no investigation tokens.
 
@@ -80,11 +82,11 @@ On return, read the report's verdict and the sections needed to decide: `Deliver
 - `PARTIAL` or `ABANDONED`: establish what remains and the branch state before scoping another attempt.
 - `BLOCKED`: resolve the named blocker or change the unit's scope before retrying. Carry the prior report into the next handoff.
 
-A report is evidence, not acceptance. Confirm the relevant revision or artifact and verification results. Cheap checks belong here; substantial independent validation can use the reader slot. Repeat checks only for missing evidence, changed code, failures, or unresolved concerns.
+A report is evidence, not acceptance. Match verification to the tested revision or artifact and account for subsequent edits and integration changes. Reuse applicable results; repeat checks only for missing evidence, changed code, failures, or unresolved concerns, naming the reason. Choose independent behavioural checks where reported tests do not establish acceptance. Cheap checks belong here; substantial independent validation can use the reader slot.
 
 Record acceptance as a decision referencing the unit, report, verified artifact or revision, and integration state. Use the existing decision format, not a new post type. If the handoff requires a merge, an unmerged branch remains pending integration. If it requires a reviewed artifact, use that criterion instead. Acceptance within standing authority needs no extra user confirmation; require human acceptance only when the project calls for it.
 
-Integration is the manager's step, taken after acceptance. Where the required integration state is a merged revision, merge the unit's branch into the branch the manager was invoked on, then remove the worktree and delete the branch; record the merged revision in the acceptance decision. Where it is a pull request, open or merge it under the project's policy and remove the worktree once merged. A `PARTIAL` or `BLOCKED` attempt keeps its branch for the next attempt to resume from; only the worktree goes. The dispatch tool removes only an unchanged worktree, so this cleanup is always explicit.
+After reviewing the result, integrate under the project's policy and verify affected checks before recording final acceptance. Confirm the required revision is present at the integration destination before deleting a branch or worktree. Keep a PARTIAL or BLOCKED attempt's branch and any uncommitted work needed for recovery; remove its worktree only after that state is preserved elsewhere. Keep deployed state distinct from accepted or merged state.
 
 Fold the accepted interface into the plan and reconsider only affected dependencies. Advance within the authorized milestone. When all its criteria are met, report its outcome and propose the next milestone; start it only when existing authorization covers it.
 
@@ -96,7 +98,7 @@ At meaningful transitions, present one compact status using these fields:
 
 - **Milestone:** the outcome currently being delivered.
 - **Finished:** accepted results since the last update.
-- **Running:** current writer and reader, each paired with its unit's name.
+- **Running:** current writers and readers, each paired with its unit's name.
 - **Needs your decision:** consequential choices outside standing authority, with a recommendation; otherwise none.
 - **Next:** the next unit or acceptance step.
 

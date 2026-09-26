@@ -41,9 +41,11 @@ Read the diff. Do not recall it.
 
 Take the commands from the handoff's validation section, or from the repository's own manifests where the work arrived without one. Give the result of each: passed, failed, or not run with the reason. Name the directory each ran from.
 
+Identify the tested revision or artifact, relevant environment or fixtures, and any edits made after the checks. Group checks sharing the same basis. For an uncommitted tree, identify the base revision and preserved diff. Point to available logs or CI results so acceptance can reuse the evidence.
+
 Never report a check that was not run, and never report a result from memory. A skipped check said plainly costs the reader a minute. A check reported as passing that never ran costs them the next unit.
 
-Include available token or cost usage, elapsed time, and whether the allowance was exhausted. Mark unavailable measurements as unavailable rather than estimating them as facts.
+Include available token or cost usage and elapsed time against the effort estimate, checkpoint revisions, and any hard limit reached. Mark unavailable measurements as unavailable and label estimates as estimates.
 
 ## 4. Report the interface
 
@@ -90,6 +92,7 @@ Changed
 <files and what each does; commits, branch, and PR by identifier; what is pushed>
 
 Verification
+<tested revision or artifact, environment, evidence paths, and subsequent edits>
 <each command, its directory, and its result: passed, failed, or not run and why>
 
 Interface
@@ -107,7 +110,7 @@ Unresolved
 <open decisions, assumptions and what backs them, defects found in the handoff>
 ```
 
-Where the handoff named a board, call the Skill tool with "project-board" and save the report there, then return the verdict, the path, and the one-sentence summary. Those three lines are the whole reply: the report is on the board, and the dispatching session reads the section its verdict points at. Returning the body as well is how a manager ends up holding every report it ever dispatched.
+Where the handoff named a board, call the Skill tool with "project-board" and save the report there, then return the verdict, the path, and the one-sentence summary. Those three lines are the whole reply: the report is on the board, and the dispatching session reads the section its verdict points at. If the board is inaccessible, return the report for the manager to save there with its provenance. Returning the body as well as a saved report makes the manager hold it twice.
 
 Otherwise print it in one fenced block, the last thing in the reply, ready to paste into the dispatching session. Either way, list in one or two lines anything that could not be verified.
 

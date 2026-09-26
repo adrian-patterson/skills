@@ -27,7 +27,7 @@ The board holds coordination. The repository holds the work. A post containing t
     U-142.note.03.md
 ```
 
-Filenames are `<unit>.<type>.<instance>[.<status>].md`, so `ls posts/` shows attempts and reported outcomes. A handoff with no matching report is open. A report closes that attempt and expires its grant; the unit stays pending until the manager records acceptance against verification and the required integration state in a decision.
+Filenames are `<unit>.<type>.<instance>[.<status>].md`, so `ls posts/` shows attempts and reported outcomes. A handoff is open unless a matching report or manager recovery decision closes it. Either closes that attempt and expires its grant; the unit stays pending until the manager records acceptance against verification and the required integration state in a decision.
 
 A **batch handoff** grants several small independent units at once under a batch identifier, because on a small unit the shared preamble is most of the handoff and paying for it once is the whole point. It names its items in frontmatter and returns **one report per item**, so the listing still shows what happened to each:
 
@@ -37,7 +37,7 @@ U-201.report.01.COMPLETE.md
 U-202.report.01.BLOCKED.md
 ```
 
-A batch is open until every item it names has a report. Batching changes how many handoffs are written, never how many write grants are open: the batch is one grant, held by one agent.
+A batch is open until every item it names has a report or a manager recovery decision closes the interrupted remainder. Batching changes how many handoffs are written, never how many write grants are open: the batch is one grant, held by one agent.
 
 One project has exactly one board, named in every handoff, even when the work spans several repositories. Two boards means two projects.
 
@@ -49,7 +49,7 @@ Every post is written under an identity of the form `<role>/<unit>/<instance>`:
 - `impl/U-142/01`, an agent granted write on one unit.
 - `reader/U-142/01`, an agent granted read on one unit or question.
 
-**An identity is issued, never chosen.** The manager issues one in the handoff that dispatches an agent, and that handoff is the grant: it names the unit, the boundary, the authority order, and what the identity may do. It expires when the report is filed.
+**An identity is issued, never chosen.** The manager issues one in the handoff that dispatches an agent, and that handoff is the grant: it names the unit, the boundary, the authority order, and what the identity may do. It expires when the report is filed or a manager recovery decision revokes it.
 
 An agent that cannot name its grant does not post. State the identity in frontmatter, and repeat it as a `Board-Identity:` trailer on the commits the work produces, so a post's claim and the repository's history can be compared. Nothing here is authenticated, because the risk being managed is a confused agent, not a hostile one.
 
@@ -57,10 +57,10 @@ An agent that cannot name its grant does not post. State the identity in frontma
 
 Roles divide on one axis and nothing else.
 
-- **A write grant** allows editing, committing, and pushing. **At most one is open across the entire project at any moment.** Before issuing one, the manager checks `posts/` for an open write handoff and does not issue a second.
+- **A write grant** allows editing, committing, and pushing within the handoff's policy. Default to one across the project. Parallel writers require explicit user authorization and a manager decision naming the units, limit and expiry, boundaries, shared-file owners, workspace isolation, and integration order. Shared-file edits and shared-checkout staging, commits, and integration are serialized, including the manager's. Check open grants and governing decisions before issuing another.
 - **A read grant** allows none of those. A reader investigates, reviews, and writes coordination artifacts, while leaving implementation files unchanged. Default to at most one live reader across the project, including helpers. The manager may record a larger limit for named independent questions, with a reason and an expiry. The manager issues read grants within the project's reader limit. A need or offer on the board requests capacity; it does not allocate it.
 
-Fan-out belongs in reading. Two agents editing in parallel make silently conflicting assumptions that surface only when their work meets, which costs more than the sequencing saved.
+Disjoint implementation paths can still share tracker files, an index, or runtime fixtures. Allocate those resources explicitly when permitting parallel work.
 
 ## The four message types
 
@@ -82,7 +82,7 @@ date: 2026-09-05
 ---
 ```
 
-`carries` is required on any instance after `01`, and the receiving agent reads that report before starting. A retry that does not know why the last attempt failed repeats it.
+`carries` is required on any instance after `01`, pointing to the prior report or the manager recovery decision when no report exists. The receiving agent reads it before starting. A retry that does not know why the last attempt failed repeats it.
 
 ### Report
 
@@ -118,6 +118,8 @@ date: 2026-09-05
 ```
 
 The body states the question, the options weighed, the call, and what it binds. `authority` records what the decision rests on, because the manager's own authority is delegated from the human. Only the human overrules a decision.
+
+When a stopped worker cannot report, a recovery decision names the handoff being closed, evidence that the worker and its commands have stopped, surviving changes and revision, verification gaps, and the remainder. It revokes the grant without asserting acceptance. A missing report alone is not termination evidence; uncertain boundaries stay reserved. A recovered report saved by the manager keeps the worker's identity and adds `saved-by: manager/project`.
 
 **Write it somewhere durable in the same act.** The board is ephemeral, so a decision living only here dies with the checkout. The moment one is made it also goes where this project keeps what outlasts it: the specification, the tracker, or an ADR. The post is how the agents working now find it; the durable copy is how anyone finds it in a month. Recording one without the other is the defect, and the manager is the one who owes both.
 

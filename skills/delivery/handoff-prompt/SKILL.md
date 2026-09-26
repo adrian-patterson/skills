@@ -25,7 +25,7 @@ Then, in one line, the **end** the project is working toward. Then the part that
 
 That list is what makes an agent post. An agent knowing only its own deliverable treats everything else it meets as noise, having nothing to measure it against, and the cost lands on whichever unit later pays full price to rediscover it. An agent that knows U-143 has been stuck on the thing it just worked out will say so. The reciprocity is structural rather than moral: whoever reads this list is on it next week.
 
-Where the project has a board this is a listing, not an investigation. An open handoff with no matching report is a live attempt; a returned attempt may still await verification, integration, or a retry. Use manager acceptance decisions to identify accepted units. Carry the manager's reader allocation; a peer's request for help is not a grant.
+Where the project has a board this is a listing, not an investigation. A handoff remains open until a matching report or manager recovery decision closes it; a returned attempt may still await verification, integration, or a retry. Use manager acceptance decisions to identify accepted units. Carry the manager's reader allocation; a peer's request for help is not a grant.
 
 The list is also what is most likely to be misread as permission, so the handoff states which way it cuts: **what other units need decides what you report; the boundary decides what you do.** Section 4 is what this agent may act on, and it wins.
 
@@ -64,13 +64,13 @@ Use both an effort budget and behavioural stopping conditions. Write the signals
 
 Say plainly that stopping there is the wanted outcome. A `BLOCKED` report naming the obstacle costs the project one dispatch. A unit delivered by going around the obstacle costs it the next three.
 
-Carry a concrete token, cost, tool-call, or elapsed-time allowance from the dispatcher, or state a proportional allowance when none was supplied. Name how it is tracked, reserve verification and reporting within it, and return remaining work when it is exhausted. Include the manager's helper allocation, defaulting to none; the worker cannot renew its own budget or recruit extra readers.
+Carry the dispatcher's effort estimate, reassessment checkpoint, and any hard limits, using measurable tokens, cost, tool calls, or elapsed time. If none is supplied, state a proportional estimate. Name the tracking method and reserve for verification and reporting. At the checkpoint, send the dispatcher usage, remaining work, and a revised estimate without closing the grant; continuation stays within scope and hard limits. A hard limit stops the affected work and returns the remainder; only its authorizing source can extend it. Include the manager's helper allocation, defaulting to none.
 
 ## 6. Establish verification
 
 Copy the build, lint, typecheck, and test commands out of the repository's own manifests, with the directory each runs from. Never invent a command or assume a conventional one.
 
-State the acceptance criteria and required integration state, such as a merged revision or a reviewed artifact. The merge is the manager's step after acceptance; the worker leaves its branch committed and reports its revision. Then enumerate the cases the work must be tested against, as a numbered list. Enumerating them here is what makes the tests exhaustive rather than representative.
+State the acceptance criteria and required integration state, such as a merged revision or a reviewed artifact. Name who integrates; where that is the manager, the worker leaves its branch committed and reports its revision for review before integration and final acceptance. Require verification to name the tested revision or artifact, relevant environment, and subsequent edits. Then enumerate the cases the work must be tested against, as a numbered list. Enumerating them here is what makes the tests exhaustive rather than representative.
 
 ## 7. Size the handoff to the unit
 
@@ -90,8 +90,9 @@ Omit the heading along with the section. A heading with a placeholder under it i
 Workspace
 - <repo root>
 - Target: <package or path>
-- Worktree on branch <unit identifier>; setup commands it needs: <dependencies, env files, caches>
-- <commit, push, and PR policy; where the board is in the repository, the report is committed on this branch>
+- <workspace and branch under project policy; setup commands for dependencies, env files, caches>
+- <commit, push, and PR policy; absolute path to the existing untracked board, if any>
+- <for parallel writers: governing decision, shared-file owners, and serialized operations>
 
 Authoritative context
 <each source, with the exact URL or path and how to reach it>
@@ -147,9 +148,11 @@ Validation
 <exact commands, with their directories; acceptance criteria and required integration state>
 
 Stopping
-<effort allowance, tracking method, and verification/reporting reserve>
+<effort estimate, reassessment checkpoint, hard limits if any, tracking method, and verification/reporting reserve>
 <authorized helper allocation; none unless granted>
-Return PARTIAL or BLOCKED with remaining work when the allowance is exhausted.
+At the checkpoint, send the dispatcher usage, remaining work, and a revised
+estimate without closing the grant; continue only within scope and hard limits.
+At a hard limit, stop the affected work and return PARTIAL or BLOCKED with the remainder.
 Stop and report when you reach a third distinct approach to the same obstacle, when
 you need access or tooling this handoff did not name, or when you notice you have
 changed what you are doing rather than how. Those mean the unit is wrong, not that
@@ -160,6 +163,7 @@ Report
 When the work is finished, blocked, or abandoned, call the Skill tool with "handoff-report".
 <Where this handoff named a board: save the report there, and return three lines and
 nothing else: the verdict, the path it was saved to, and the one-sentence summary.
+If the board is inaccessible, return the report for the manager to save there.
 The dispatching session reads the section it needs from the board. Returning the body
 as well makes it pay for the whole document a second time, in the one context that
 has to survive the project.>
