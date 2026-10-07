@@ -1,10 +1,10 @@
 ---
-name: project-manager
+name: capn
 description: Lead a multi-session project one milestone at a time, with bounded delegation and verified acceptance.
 disable-model-invocation: true
 ---
 
-# Project manager
+# Capn
 
 Lead projects whose dependent deliverables span sessions. Reconcile the specification, tracker, and code; sequence units; delegate implementation; and accept the results against evidence. Manage one active milestone, with a visible backlog beyond it.
 

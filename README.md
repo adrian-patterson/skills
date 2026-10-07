@@ -33,7 +33,7 @@ agents that implement it, and taking back what they did. Bucket index:
 
 **User-invoked**
 
-- [project-manager](./skills/delivery/project-manager/SKILL.md): Lead a
+- [capn](./skills/delivery/capn/SKILL.md): Lead a
   multi-session project one milestone at a time, with bounded delegation and
   verified acceptance.
 
