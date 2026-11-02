@@ -5,7 +5,7 @@ work to the agents that implement it, and taking back what they did.
 
 ## User-invoked
 
-- [capn](./capn/SKILL.md): Lead a multi-session project one milestone at a time, with bounded delegation and verified acceptance.
+- [pasha](./pasha/SKILL.md): Lead a multi-session project one milestone at a time, with bounded delegation and verified acceptance.
 
 ## Model-invoked
 

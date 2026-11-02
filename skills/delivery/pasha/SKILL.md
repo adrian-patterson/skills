@@ -1,10 +1,10 @@
 ---
-name: capn
+name: pasha
 description: Lead a multi-session project one milestone at a time, with bounded delegation and verified acceptance.
 disable-model-invocation: true
 ---
 
-# Capn
+# Pasha
 
 Lead projects whose dependent deliverables span sessions. Reconcile the specification, tracker, and code; sequence units; delegate implementation; and accept the results against evidence. Manage one active milestone, with a visible backlog beyond it.
 
@@ -18,7 +18,7 @@ Use sources already named in the session. Ask for a missing source only when it 
 
 Fix the **authority order**: which source defines behaviour, refines technical detail, scopes a unit, or supplies patterns. Existing code supplies patterns unless no other source defines behaviour.
 
-For multi-session coordination, call the Skill tool with "project-board" to locate or set up the project's one board. Record the active milestone, acceptance criteria, and operating limits in its README. When taking over existing work, reconcile live grants before dispatching anything; if over the limits, let them finish or close cancelled attempts before adding work. For missing reports, interrupted workers, or a restart with uncertain state, read [RECOVERY.md](RECOVERY.md).
+For multi-session coordination, call the Skill tool with "project-board" to locate or set up the project's one board. Maintain its README as the manager checkpoint below. After compaction, a restart, or taking over existing work, read [RECOVERY.md](RECOVERY.md) and reconcile the checkpoint before dispatching or accepting anything. Read it also for missing reports or interrupted workers. If live grants exceed operating limits, let them finish or close cancelled attempts before adding work.
 
 Completion criterion: the active milestone, its acceptance criteria, authority order, and live work are explicit. Mapping the whole backlog is unnecessary unless the user requested it.
 
@@ -66,7 +66,7 @@ Call the Skill tool with "handoff-prompt" to prepare each dispatch. Supply:
 
 Use measurable tokens, cost, tool calls, or elapsed time. Distinguish a planning estimate from a hard limit; preserve the user's stated limits and finish-through-overrun directions. At the estimate or an earlier named checkpoint, the worker sends the manager usage, remaining work, and a revised estimate without closing the grant, and may continue within the same scope and hard limits. Reserve effort for verification and reporting. A hard limit, including a paid-call cap, stops the affected work and returns PARTIAL or BLOCKED with the remainder; only its authorizing source can extend it. Use actual overruns to size the next handoff.
 
-Batch small independent units sharing setup and validation into one writer handoff with one report per item. Keep dependent units separate. Send the prepared handoff verbatim, with only the context needed for that unit rather than the full conversation.
+Batch small independent units sharing setup and validation into one writer handoff with one report per item. Keep dependent units separate. Send the prepared handoff verbatim into a fresh worker context, with conversation inheritance disabled through the dispatch tool where supported. If unavailable, disclose that isolation limitation. Require the board-backed reply specified by handoff-report: verdict, report path, and one-sentence summary. Read targeted report sections and evidence; load worker transcripts or raw logs only to resolve a named evidence gap.
 
 Use the project's workspace policy. Where isolation is allowed, dispatch each writer into its own **worktree** on a branch named from the unit, applying isolation through the tool when available. Keep active worktrees outside OS temporary directories and preserve implementation checkpoints on their branches. A batch shares one workspace. Carry dependency, environment, and cache setup commands in the handoff. Name the existing board by absolute path; reports stay untracked there. If the worker cannot access it, the manager saves the returned report there with its provenance.
 
@@ -106,10 +106,25 @@ Pair identifiers with tracker titles or short descriptions. Surface material bud
 
 At milestone completion, record available total tokens or cost across manager and workers, elapsed time, user interventions, and rework through acceptance. Mark unavailable measurements as unavailable. Compare similar accepted outcomes when judging whether delegation earned its cost; worker count and activity are not success measures.
 
+## Manager checkpoint
+
+For multi-session work, keep a `## Manager checkpoint` section in the board README using these fields. Use identifiers and source pointers, with `none` or `unavailable` explicit; keep worker investigation details in their reports.
+
+- **Updated:** timestamp and the latest decision and report reconciled.
+- **Milestone:** active outcome, acceptance criteria, authority order, and source paths; paused work and backlog pointer.
+- **Units:** identifiers and names, dependency order, accepted or pending state, acceptance decision/report pointers, and remaining verification or integration.
+- **Live grants:** handoff path, identity, worker/session identifier, read/write boundary, workspace and branch, last known state, and any unresolved dispatch outcome.
+- **Decisions needed:** blockers, objections, and choices awaiting authority, with source pointers.
+- **Budgets:** operating limits, estimates versus hard limits, measured usage and remaining allowance, next reassessment, and authorizing source. Mark unavailable usage instead of inferring an allowance.
+- **Next action:** the exact next dispatch, wait, verification, integration, or user decision, its prerequisites, and the paths needed to resume it.
+
+Create the checkpoint before the first dispatch. Save the handoff and checkpoint the intended dispatch before calling the tool; record the returned worker identifier immediately afterward. Refresh after each report, acceptance, recovery, budget revision, or change of priority, boundary, or authority, and before waiting or ending the turn. If compaction is announced or recollection becomes uncertain, refresh while the evidence is still available. Keep the board's absolute path in the conversation's continuation summary when one can be supplied; continuity must not depend on a pre-compaction hook.
+
+The checkpoint is a current index, not authority or evidence of completion. Write binding decisions through the board's decision protocol and link them here. On resume, reconcile newer posts and actual worker state before following `Next action`; the README may lag an interrupted transition. The board survives compaction within the checkout, not cleanup or checkout loss.
+
 ## Standing rules
 
 - **Act within existing authorization.** Make routine reversible implementation choices consistent with the contract and record material assumptions. Surface gaps that affect behaviour, scope, irreversible actions, or acceptance instead of inventing requirements.
 - **Tracker changes follow authority.** Apply corrections or updates already authorized. For a change outside that authority, propose exact text and obtain approval before writing.
 - **Persist binding decisions.** Record changes to contracts, boundaries, acceptance, or operating limits on the board and in the project's durable specification, tracker, or ADR. Routine status belongs in the status view, not a new architectural decision.
 - **Budget the whole system.** Delegation saves manager context by spending worker context. Prefer a direct check or reused evidence when that answers the same question adequately.
-- **Checkpoint when continuity weakens.** If repeated reads or uncertain recollection make decisions unreliable, record the active milestone, accepted and pending units, live grants, budgets, and next action. Resume from that checkpoint and source pointers. A normal board refresh is not itself a reason to replace the manager.

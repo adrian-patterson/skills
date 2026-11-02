@@ -1,6 +1,6 @@
 # Coordinate agents through a board with issued identities
 
-Today `capn` dispatches a unit, `handoff-prompt` writes the outbound
+Today `pasha` dispatches a unit, `handoff-prompt` writes the outbound
 artifact, and `handoff-report` writes the inbound one. Both print a fenced block
 that the human carries between sessions. The human is the transport.
 
@@ -16,7 +16,7 @@ and write to, with a control component deciding who acts next, is a blackboard
 system, built first as Hearsay-II at CMU in the early 1970s. Its three parts are
 the knowledge sources, the blackboard, and the control shell. The important
 property is that knowledge sources never address each other. They post partial
-solutions and the control shell decides what happens next. `capn` is
+solutions and the control shell decides what happens next. `pasha` is
 the control shell, and most of what follows is that observation applied.
 
 **Multi-agent systems fail in catalogued ways.** Cemri et al., *Why Do

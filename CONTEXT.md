@@ -79,6 +79,12 @@ One project has exactly one. It lives in `.tmp/` and is never committed, so it i
 the project's working memory and never its record.
 _Avoid_: channel, queue, inbox
 
+**Manager checkpoint**:
+The current resume index in the board README: milestone, unit states, live
+grants, pending decisions, budgets, and next action, with source pointers.
+Refreshed at coordination transitions and reconciled after compaction or restart.
+It summarizes evidence and authority; it creates neither.
+
 **Post**:
 One file on a board. Always a claim to verify against the repository, except a
 decision, which is the only kind that binds.
