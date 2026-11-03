@@ -175,7 +175,7 @@ has to survive the project.>
 
 Where the project has a board, call the Skill tool with "project-board" and save the handoff there under the identity it issues. Otherwise print it in one fenced block, the last thing in the reply, ready to paste into a fresh session. Above the block or the path, list in one or two lines anything you could not verify.
 
-When another agent invoked this skill in order to dispatch the work itself, return the handoff verbatim as the prompt for that agent to send, and dispatch nothing yourself.
+When another agent invoked this skill in order to dispatch the work itself, dispatch nothing yourself. Where the handoff was saved to a board, return its absolute path: the dispatch prompt names the issued identity and that path and tells the receiving agent to read and execute the file. Retyping the body into the dispatch prompt makes the dispatching session write the whole handoff a second time. Otherwise return the handoff verbatim as the prompt to send.
 
 ## Grounding rules
 

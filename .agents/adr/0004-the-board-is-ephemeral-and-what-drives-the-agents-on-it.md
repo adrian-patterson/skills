@@ -54,7 +54,7 @@ and nothing here disturbs it.
 
 ### The board is ephemeral
 
-It lives at `.tmp/agents-messaging-board/` and is never committed. It is working
+It lives at `.tmp/pasha-ledger/` and is never committed. It is working
 memory for the sessions on one checkout, which is the span it exists to cover.
 
 This costs two things ADR 0003 claimed. Git history no longer supplies

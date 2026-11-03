@@ -14,7 +14,7 @@ The board holds coordination. The repository holds the work. A post containing t
 ## Layout
 
 ```
-.tmp/agents-messaging-board/
+.tmp/pasha-ledger/
   README.md              what this board is, and the project it serves
   decisions/
     D-001-<slug>.md      written by the manager alone
@@ -68,7 +68,7 @@ A fifth type needs an ADR entry saying which of these four failed to carry the c
 
 ### Handoff
 
-Issued by the manager. Written by calling the Skill tool with "handoff-prompt", then saved to `posts/<unit>.handoff.<nn>.md` with this frontmatter:
+Issued by the manager. Written by calling the Skill tool with "handoff-prompt", then saved to `posts/<unit>.handoff.<nn>.md` with this frontmatter (the dispatch prompt points at this file instead of repeating it):
 
 ```yaml
 ---
@@ -189,7 +189,7 @@ This governs agents talking to each other. It does not govern the manager talkin
 
 ## Setting up a board
 
-Only when the user asks or authorizes a multi-session management workflow that needs one, and only once per project. Create `.tmp/agents-messaging-board/decisions/` and `.tmp/agents-messaging-board/posts/`, and a `README.md` naming the project, the manager identity, the repository that holds the board, the end the project is working toward, the sources that govern it, the active milestone and its acceptance criteria, and current operating limits. Keep this README as the current status view; posts and decisions remain append-only.
+Only when the user asks or authorizes a multi-session management workflow that needs one, and only once per project. Create `.tmp/pasha-ledger/decisions/` and `.tmp/pasha-ledger/posts/`, and a `README.md` naming the project, the manager identity, the repository that holds the board, the end the project is working toward, the sources that govern it, the active milestone and its acceptance criteria, and current operating limits. Keep this README as the current status view; posts and decisions remain append-only.
 
 **The board is ephemeral and is never committed.** `.tmp/` is scratch space: the board holds across the sessions working this checkout, which is the span it exists to cover, and it does not survive a clean or reach another machine. Check that the repository ignores `.tmp/`, and add it if not.
 
